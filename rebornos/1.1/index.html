@@ -12,28 +12,111 @@
       padding: 0;
       height: 100%;
       overflow: hidden;
+      font-family: sans-serif;
     }
+    /* Desktop background set to use a higher resolution image */
     #desktop {
-      background: url('icons/backround.png') no-repeat center center;
+      background: url('icons/background_hd.png') no-repeat center center;
       background-size: cover;
       position: relative;
       height: calc(100% - 40px); /* Taskbar height assumed 40px */
     }
+    /* Taskbar at bottom with Windows 10–like style */
     #taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
       height: 40px;
       background: rgba(0,0,0,0.8);
       display: flex;
       align-items: center;
       padding: 0 10px;
+      z-index: 1000;
     }
     #start-button {
       cursor: pointer;
+      display: flex;
+      align-items: center;
     }
     #start-button img {
       height: 30px;
       width: 30px;
-      vertical-align: middle;
+      margin-right: 5px;
     }
+    #start-menu {
+      display: none;
+      position: fixed;
+      bottom: 40px;
+      left: 0;
+      width: 300px;
+      max-height: 400px;
+      background: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      z-index: 1001;
+      padding: 10px;
+    }
+    #start-menu input[type="search"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+    }
+    #start-menu .app-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #start-menu .app-list li {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      cursor: pointer;
+    }
+    #start-menu .app-list li img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+    /* Taskbar installed apps container */
+    #taskbar-icons {
+      margin-left: auto;
+      display: flex;
+    }
+    #taskbar-icons .taskbar-item {
+      margin-left: 5px;
+      cursor: pointer;
+      position: relative;
+    }
+    #taskbar-icons .taskbar-item img {
+      height: 30px;
+      width: 30px;
+    }
+    /* Context menu styles */
+    #context-menu {
+      display: none;
+      position: fixed;
+      background: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      z-index: 2000;
+      padding: 5px;
+    }
+    #context-menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #context-menu ul li {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #context-menu ul li:hover {
+      background: #0078d7;
+      color: #fff;
+    }
+    /* Desktop icons */
     .desktop-icon {
       width: 80px;
       text-align: center;
@@ -45,9 +128,11 @@
       width: 48px;
       height: 48px;
     }
-    /* Position sample icons */
+    /* Default icon positions */
     .desktop-icon[data-app="minecraft"] { top: 20px; left: 20px; }
     .desktop-icon[data-app="browser"] { top: 110px; left: 20px; }
+    .desktop-icon[data-app="vscode"] { top: 200px; left: 20px; }
+    .desktop-icon[data-app="explorer"] { top: 290px; left: 20px; }
     /* App Window styles */
     .app-window {
       position: absolute;
@@ -60,8 +145,9 @@
       display: none;
       flex-direction: column;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      z-index: 1500;
     }
-    .app-window .title-bar {
+    .title-bar {
       background: #0078d7;
       color: white;
       padding: 5px 10px;
@@ -69,6 +155,18 @@
       justify-content: space-between;
       align-items: center;
       cursor: move;
+      user-select: none;
+    }
+    .title-bar .title {
+      flex-grow: 1;
+    }
+    .title-bar .window-controls button {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 5px;
     }
     .app-window .content {
       flex: 1;
@@ -78,24 +176,42 @@
       height: 100%;
       border: 0;
     }
-    .close-btn {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
+  <!-- Start Menu -->
+  <div id="start-menu">
+    <input type="search" placeholder="Search...">
+    <ul class="app-list">
+      <li data-app="explorer">
+        <img src="icons/explorer.png" alt="File Explorer">
+        <span>File Explorer</span>
+      </li>
+      <li data-app="minecraft">
+        <img src="icons/minecraft.png" alt="Minecraft">
+        <span>Minecraft</span>
+      </li>
+      <li data-app="browser">
+        <img src="icons/browser.png" alt="Browser">
+        <span>Browser</span>
+      </li>
+      <li data-app="vscode">
+        <img src="icons/vscode.png" alt="VSCode">
+        <span>VSCode</span>
+      </li>
+    </ul>
+  </div>
+  <!-- Taskbar -->
   <div id="taskbar">
     <div id="start-button">
       <img src="icons/start.png" alt="Start">
+      <span>Start</span>
     </div>
     <div id="taskbar-icons">
-      <!-- Taskbar icons will go here -->
+      <!-- Pinned taskbar icons will appear here -->
     </div>
   </div>
+  <!-- Desktop -->
   <div id="desktop">
     <!-- Desktop Icons -->
     <div class="desktop-icon" data-app="minecraft">
@@ -106,12 +222,24 @@
       <img src="icons/browser.png" alt="Browser">
       <div>Browser</div>
     </div>
+    <div class="desktop-icon" data-app="vscode">
+      <img src="icons/vscode.png" alt="VSCode">
+      <div>VSCode</div>
+    </div>
+    <div class="desktop-icon" data-app="explorer">
+      <img src="icons/explorer.png" alt="File Explorer">
+      <div>File Explorer</div>
+    </div>
   </div>
   <!-- App Windows -->
   <div id="minecraft-window" class="app-window">
     <div class="title-bar">
-      <span>Minecraft</span>
-      <button class="close-btn" onclick="closeApp('minecraft-window')">X</button>
+      <span class="title">Minecraft</span>
+      <div class="window-controls">
+        <button class="min-btn" onclick="minimizeApp('minecraft-window')">_</button>
+        <button class="max-btn" onclick="toggleFullScreen('minecraft-window')">☐</button>
+        <button class="close-btn" onclick="closeApp('minecraft-window')">X</button>
+      </div>
     </div>
     <div class="content">
       <iframe src="https://mcraft.fun"></iframe>
@@ -119,29 +247,236 @@
   </div>
   <div id="browser-window" class="app-window">
     <div class="title-bar">
-      <span>Browser</span>
-      <button class="close-btn" onclick="closeApp('browser-window')">X</button>
+      <span class="title">Browser</span>
+      <div class="window-controls">
+        <button class="min-btn" onclick="minimizeApp('browser-window')">_</button>
+        <button class="max-btn" onclick="toggleFullScreen('browser-window')">☐</button>
+        <button class="close-btn" onclick="closeApp('browser-window')">X</button>
+      </div>
     </div>
     <div class="content">
       <iframe src="https://lucgei231.github.io/browser/1.0/"></iframe>
     </div>
   </div>
+  <div id="vscode-window" class="app-window">
+    <div class="title-bar">
+      <span class="title">VSCode</span>
+      <div class="window-controls">
+        <button class="min-btn" onclick="minimizeApp('vscode-window')">_</button>
+        <button class="max-btn" onclick="toggleFullScreen('vscode-window')">☐</button>
+        <button class="close-btn" onclick="closeApp('vscode-window')">X</button>
+      </div>
+    </div>
+    <div class="content">
+      <iframe src="https://vscode.dev"></iframe>
+    </div>
+  </div>
+  <div id="explorer-window" class="app-window">
+    <div class="title-bar">
+      <span class="title">File Explorer</span>
+      <div class="window-controls">
+        <button class="min-btn" onclick="minimizeApp('explorer-window')">_</button>
+        <button class="max-btn" onclick="toggleFullScreen('explorer-window')">☐</button>
+        <button class="close-btn" onclick="closeApp('explorer-window')">X</button>
+      </div>
+    </div>
+    <div class="content">
+      <!-- File Explorer content goes here -->
+      <p>File Explorer content</p>
+    </div>
+  </div>
+  <!-- Context Menu -->
+  <div id="context-menu">
+    <ul>
+      <li id="context-action">Pin to Taskbar</li>
+    </ul>
+  </div>
   <script src="js/app.js"></script>
   <script>
-    /* Minimal JS for opening/closing app windows */
+    // Open app windows on double click
     document.querySelectorAll('.desktop-icon').forEach(function(icon) {
       icon.addEventListener('dblclick', function() {
         var app = this.getAttribute('data-app');
-        if(app === 'minecraft') {
-          document.getElementById('minecraft-window').style.display = 'flex';
-        } else if(app === 'browser') {
-          document.getElementById('browser-window').style.display = 'flex';
-        }
+        openApp(app);
+      });
+      // Right-click to show desktop context menu
+      icon.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        showContextMenu(e, this);
       });
     });
-    
+
+    // Start menu toggle
+    var startButton = document.getElementById('start-button');
+    var startMenu = document.getElementById('start-menu');
+    startButton.addEventListener('click', function() {
+      startMenu.style.display = startMenu.style.display === 'block' ? 'none' : 'block';
+    });
+    // Start menu app list click
+    document.querySelectorAll('#start-menu .app-list li').forEach(function(item) {
+      item.addEventListener('click', function() {
+        var app = this.getAttribute('data-app');
+        openApp(app);
+        startMenu.style.display = 'none';
+      });
+    });
+
+    // Open app window by data-app and make it draggable
+    function openApp(app) {
+      if (app === 'minecraft') {
+        document.getElementById('minecraft-window').style.display = 'flex';
+        makeDraggable(document.getElementById('minecraft-window'));
+      } else if (app === 'browser') {
+        document.getElementById('browser-window').style.display = 'flex';
+        makeDraggable(document.getElementById('browser-window'));
+      } else if (app === 'vscode') {
+        document.getElementById('vscode-window').style.display = 'flex';
+        makeDraggable(document.getElementById('vscode-window'));
+      } else if (app === 'explorer') {
+        document.getElementById('explorer-window').style.display = 'flex';
+        makeDraggable(document.getElementById('explorer-window'));
+      }
+    }
+
+    // Close app window
     window.closeApp = function(windowId) {
       document.getElementById(windowId).style.display = 'none';
+    }
+
+    // Minimize app window (for simplicity, just hide it)
+    window.minimizeApp = function(windowId) {
+      document.getElementById(windowId).style.display = 'none';
+    }
+
+    // Toggle Fullscreen of app window
+    window.toggleFullScreen = function(windowId) {
+      var win = document.getElementById(windowId);
+      if (win.getAttribute('data-fullscreen') === 'true') {
+        // Revert to original size/position
+        win.style.position = 'absolute';
+        win.style.top = win.getAttribute('data-orig-top') || '20%';
+        win.style.left = win.getAttribute('data-orig-left') || '20%';
+        win.style.width = win.getAttribute('data-orig-width') || '60%';
+        win.style.height = win.getAttribute('data-orig-height') || '60%';
+        win.setAttribute('data-fullscreen', 'false');
+      } else {
+        // Save current position/size
+        win.setAttribute('data-orig-top', win.style.top);
+        win.setAttribute('data-orig-left', win.style.left);
+        win.setAttribute('data-orig-width', win.style.width);
+        win.setAttribute('data-orig-height', win.style.height);
+        // Make fullscreen
+        win.style.position = 'fixed';
+        win.style.top = '0';
+        win.style.left = '0';
+        win.style.width = '100%';
+        win.style.height = '100%';
+        win.setAttribute('data-fullscreen', 'true');
+      }
+    }
+
+    // Context Menu implementation
+    var contextMenu = document.getElementById('context-menu');
+    var contextTarget = null;
+    document.addEventListener('click', function() {
+      contextMenu.style.display = 'none';
+    });
+    // Show context menu for desktop icons and taskbar items
+    function showContextMenu(e, target) {
+      e.preventDefault();
+      contextTarget = target;
+      var actionItem = document.getElementById('context-action');
+      // Determine if target is pinned (data-pinned attribute)
+      if (target.getAttribute('data-pinned') === 'true') {
+        actionItem.textContent = 'Unpin from Taskbar';
+      } else {
+        actionItem.textContent = 'Pin to Taskbar';
+      }
+      contextMenu.style.top = e.clientY + 'px';
+      contextMenu.style.left = e.clientX + 'px';
+      contextMenu.style.display = 'block';
+    }
+
+    // Handle context menu action click
+    document.getElementById('context-action').addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (!contextTarget) return;
+      var app = contextTarget.getAttribute('data-app');
+      if (contextTarget.getAttribute('data-pinned') === 'true') {
+        // Remove from taskbar
+        removeFromTaskbar(app);
+        contextTarget.setAttribute('data-pinned', 'false');
+      } else {
+        // Add to taskbar
+        addToTaskbar(app, contextTarget.querySelector('img').src);
+        contextTarget.setAttribute('data-pinned', 'true');
+      }
+      contextMenu.style.display = 'none';
+    });
+
+    // Add app icon to the taskbar
+    function addToTaskbar(app, iconSrc) {
+      // Avoid duplicate icons
+      if (document.querySelector('#taskbar-icons .taskbar-item[data-app="'+ app +'"]')) return;
+      var taskbarIcons = document.getElementById('taskbar-icons');
+      var item = document.createElement('div');
+      item.className = 'taskbar-item';
+      item.setAttribute('data-app', app);
+      item.innerHTML = '<img src="'+ iconSrc +'" alt="'+ app +'">';
+      item.addEventListener('click', function() {
+        openApp(app);
+      });
+      // Right-click context for taskbar to unpin
+      item.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        contextTarget = item;
+        document.getElementById('context-action').textContent = 'Unpin from Taskbar';
+        contextMenu.style.top = e.clientY + 'px';
+        contextMenu.style.left = e.clientX + 'px';
+        contextMenu.style.display = 'block';
+      });
+      taskbarIcons.appendChild(item);
+    }
+
+    // Remove app icon from the taskbar
+    function removeFromTaskbar(app) {
+      var item = document.querySelector('#taskbar-icons .taskbar-item[data-app="'+ app +'"]');
+      if (item) {
+        item.parentElement.removeChild(item);
+      }
+    }
+
+    // Make an element draggable
+    function makeDraggable(el) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      var header = el.querySelector('.title-bar');
+      if (header) {
+        header.onmousedown = dragMouseDown;
+      }
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // Bring window to front
+        el.style.zIndex = parseInt(Date.now()/1000); 
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        el.style.top = (el.offsetTop - pos2) + "px";
+        el.style.left = (el.offsetLeft - pos1) + "px";
+      }
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
     }
   </script>
 </body>
