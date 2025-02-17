@@ -14,9 +14,9 @@
       overflow: hidden;
       font-family: sans-serif;
     }
-    /* Desktop background set to use a higher resolution image */
+    /* Desktop background using an online image from Unsplash */
     #desktop {
-      background: url('icons/background_hd.png') no-repeat center center;
+      background: url('https://source.unsplash.com/1920x1080/?landscape') no-repeat center center;
       background-size: cover;
       position: relative;
       height: calc(100% - 40px); /* Taskbar height assumed 40px */
@@ -81,13 +81,15 @@
     }
     /* Taskbar installed apps container */
     #taskbar-icons {
-      margin-left: auto;
       display: flex;
+      align-items: center;
+      overflow-x: auto;
     }
     #taskbar-icons .taskbar-item {
       margin-left: 5px;
       cursor: pointer;
       position: relative;
+      flex-shrink: 0;
     }
     #taskbar-icons .taskbar-item img {
       height: 30px;
@@ -131,7 +133,6 @@
     /* Default icon positions */
     .desktop-icon[data-app="minecraft"] { top: 20px; left: 20px; }
     .desktop-icon[data-app="browser"] { top: 110px; left: 20px; }
-    .desktop-icon[data-app="vscode"] { top: 200px; left: 20px; }
     .desktop-icon[data-app="explorer"] { top: 290px; left: 20px; }
     /* App Window styles */
     .app-window {
@@ -170,6 +171,7 @@
     }
     .app-window .content {
       flex: 1;
+      overflow: auto;
     }
     .app-window iframe {
       width: 100%;
@@ -195,10 +197,6 @@
         <img src="icons/browser.png" alt="Browser">
         <span>Browser</span>
       </li>
-      <li data-app="vscode">
-        <img src="icons/vscode.png" alt="VSCode">
-        <span>VSCode</span>
-      </li>
     </ul>
   </div>
   <!-- Taskbar -->
@@ -208,7 +206,7 @@
       <span>Start</span>
     </div>
     <div id="taskbar-icons">
-      <!-- Pinned taskbar icons will appear here -->
+      <!-- Open app icons will appear here -->
     </div>
   </div>
   <!-- Desktop -->
@@ -221,10 +219,6 @@
     <div class="desktop-icon" data-app="browser">
       <img src="icons/browser.png" alt="Browser">
       <div>Browser</div>
-    </div>
-    <div class="desktop-icon" data-app="vscode">
-      <img src="icons/vscode.png" alt="VSCode">
-      <div>VSCode</div>
     </div>
     <div class="desktop-icon" data-app="explorer">
       <img src="icons/explorer.png" alt="File Explorer">
@@ -258,19 +252,6 @@
       <iframe src="https://lucgei231.github.io/browser/1.0/"></iframe>
     </div>
   </div>
-  <div id="vscode-window" class="app-window">
-    <div class="title-bar">
-      <span class="title">VSCode</span>
-      <div class="window-controls">
-        <button class="min-btn" onclick="minimizeApp('vscode-window')">_</button>
-        <button class="max-btn" onclick="toggleFullScreen('vscode-window')">☐</button>
-        <button class="close-btn" onclick="closeApp('vscode-window')">X</button>
-      </div>
-    </div>
-    <div class="content">
-      <iframe src="https://vscode.dev"></iframe>
-    </div>
-  </div>
   <div id="explorer-window" class="app-window">
     <div class="title-bar">
       <span class="title">File Explorer</span>
@@ -281,8 +262,14 @@
       </div>
     </div>
     <div class="content">
-      <!-- File Explorer content goes here -->
-      <p>File Explorer content</p>
+      <!-- Simulated File Explorer content -->
+      <ul id="file-list">
+        <li onclick="alert('Opening Documents')">Documents</li>
+        <li onclick="alert('Opening Pictures')">Pictures</li>
+        <li onclick="alert('Opening Music')">Music</li>
+        <li onclick="alert('Opening Videos')">Videos</li>
+        <li onclick="alert('Opening Desktop')">Desktop</li>
+      </ul>
     </div>
   </div>
   <!-- Context Menu -->
@@ -321,29 +308,43 @@
       });
     });
 
-    // Open app window by data-app and make it draggable
+    // Open app window by data-app, add to taskbar, and make draggable
     function openApp(app) {
+      var win;
       if (app === 'minecraft') {
-        document.getElementById('minecraft-window').style.display = 'flex';
-        makeDraggable(document.getElementById('minecraft-window'));
+        win = document.getElementById('minecraft-window');
       } else if (app === 'browser') {
-        document.getElementById('browser-window').style.display = 'flex';
-        makeDraggable(document.getElementById('browser-window'));
-      } else if (app === 'vscode') {
-        document.getElementById('vscode-window').style.display = 'flex';
-        makeDraggable(document.getElementById('vscode-window'));
+        win = document.getElementById('browser-window');
       } else if (app === 'explorer') {
-        document.getElementById('explorer-window').style.display = 'flex';
-        makeDraggable(document.getElementById('explorer-window'));
+        win = document.getElementById('explorer-window');
+      }
+      if (win) {
+        win.style.display = 'flex';
+        makeDraggable(win);
+        // Ensure the app icon is on the taskbar if open
+        var desktopIcon = document.querySelector('.desktop-icon[data-app="'+app+'"]');
+        if (desktopIcon) {
+          var iconSrc = desktopIcon.querySelector('img').src;
+          addToTaskbar(app, iconSrc);
+        }
       }
     }
 
-    // Close app window
+    // Close app window; taskbar icon remains while open. If the app is not pinned and closed, remove icon.
     window.closeApp = function(windowId) {
+      var app = '';
+      if (windowId === 'minecraft-window') { app = 'minecraft'; }
+      else if (windowId === 'browser-window') { app = 'browser'; }
+      else if (windowId === 'explorer-window') { app = 'explorer'; }
       document.getElementById(windowId).style.display = 'none';
+      // Only remove the taskbar icon if the desktop icon isn't marked as pinned
+      var desktopIcon = document.querySelector('.desktop-icon[data-app="'+app+'"]');
+      if (desktopIcon && desktopIcon.getAttribute('data-pinned') !== 'true') {
+        removeFromTaskbar(app);
+      }
     }
 
-    // Minimize app window (for simplicity, just hide it)
+    // Minimize app window (hide it)
     window.minimizeApp = function(windowId) {
       document.getElementById(windowId).style.display = 'none';
     }
@@ -352,7 +353,6 @@
     window.toggleFullScreen = function(windowId) {
       var win = document.getElementById(windowId);
       if (win.getAttribute('data-fullscreen') === 'true') {
-        // Revert to original size/position
         win.style.position = 'absolute';
         win.style.top = win.getAttribute('data-orig-top') || '20%';
         win.style.left = win.getAttribute('data-orig-left') || '20%';
@@ -360,12 +360,10 @@
         win.style.height = win.getAttribute('data-orig-height') || '60%';
         win.setAttribute('data-fullscreen', 'false');
       } else {
-        // Save current position/size
         win.setAttribute('data-orig-top', win.style.top);
         win.setAttribute('data-orig-left', win.style.left);
         win.setAttribute('data-orig-width', win.style.width);
         win.setAttribute('data-orig-height', win.style.height);
-        // Make fullscreen
         win.style.position = 'fixed';
         win.style.top = '0';
         win.style.left = '0';
@@ -375,18 +373,16 @@
       }
     }
 
-    // Context Menu implementation
+    // Context Menu implementation for pinning/unpinning apps
     var contextMenu = document.getElementById('context-menu');
     var contextTarget = null;
     document.addEventListener('click', function() {
       contextMenu.style.display = 'none';
     });
-    // Show context menu for desktop icons and taskbar items
     function showContextMenu(e, target) {
       e.preventDefault();
       contextTarget = target;
       var actionItem = document.getElementById('context-action');
-      // Determine if target is pinned (data-pinned attribute)
       if (target.getAttribute('data-pinned') === 'true') {
         actionItem.textContent = 'Unpin from Taskbar';
       } else {
@@ -396,27 +392,22 @@
       contextMenu.style.left = e.clientX + 'px';
       contextMenu.style.display = 'block';
     }
-
-    // Handle context menu action click
     document.getElementById('context-action').addEventListener('click', function(e) {
       e.stopPropagation();
       if (!contextTarget) return;
       var app = contextTarget.getAttribute('data-app');
       if (contextTarget.getAttribute('data-pinned') === 'true') {
-        // Remove from taskbar
         removeFromTaskbar(app);
         contextTarget.setAttribute('data-pinned', 'false');
       } else {
-        // Add to taskbar
         addToTaskbar(app, contextTarget.querySelector('img').src);
         contextTarget.setAttribute('data-pinned', 'true');
       }
       contextMenu.style.display = 'none';
     });
 
-    // Add app icon to the taskbar
+    // Add app icon to taskbar (if not duplicate)
     function addToTaskbar(app, iconSrc) {
-      // Avoid duplicate icons
       if (document.querySelector('#taskbar-icons .taskbar-item[data-app="'+ app +'"]')) return;
       var taskbarIcons = document.getElementById('taskbar-icons');
       var item = document.createElement('div');
@@ -426,7 +417,7 @@
       item.addEventListener('click', function() {
         openApp(app);
       });
-      // Right-click context for taskbar to unpin
+      // Right-click on taskbar item to unpin
       item.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         contextTarget = item;
@@ -438,7 +429,7 @@
       taskbarIcons.appendChild(item);
     }
 
-    // Remove app icon from the taskbar
+    // Remove app icon from taskbar
     function removeFromTaskbar(app) {
       var item = document.querySelector('#taskbar-icons .taskbar-item[data-app="'+ app +'"]');
       if (item) {
@@ -456,8 +447,7 @@
       function dragMouseDown(e) {
         e = e || window.event;
         e.preventDefault();
-        // Bring window to front
-        el.style.zIndex = parseInt(Date.now()/1000); 
+        el.style.zIndex = parseInt(Date.now()/1000);
         pos3 = e.clientX;
         pos4 = e.clientY;
         document.onmouseup = closeDragElement;
