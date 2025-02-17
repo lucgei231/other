@@ -15,14 +15,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
 button {
     background-color: #007bff;
     color: #fff;
@@ -34,4 +26,8 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+input[type="file"] {
+    display: none;
 }

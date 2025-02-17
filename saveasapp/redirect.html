@@ -6,24 +6,39 @@
     <title>Redirecting...</title>
     <link rel="manifest" href="manifest.json">
     <script>
-      console.log("This message appears first");
-
-setTimeout(function() {
-    console.log("it has been 4 seconds");
-
-
-
-
-      document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             var url = localStorage.getItem('webapp_url');
             if (url) {
-                window.location.href = url;
+                setTimeout(function() {
+                    window.location.href = url;
+                }, 5000); // 5-second delay
             }
         });
-    }, 4000);       
     </script>
 </head>
 <body>
-    <p>Redirecting...</p>
+    <div class="container">
+        <p>Redirecting in 5 seconds...</p>
+        <button id="icon-btn">Choose Icon</button>
+        <input type="file" id="icon-input" accept="image/*" style="display: none;">
+    </div>
+    <script>
+        document.getElementById('icon-btn').addEventListener('click', function() {
+            document.getElementById('icon-input').click();
+        });
+
+        document.getElementById('icon-input').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var iconDataUrl = e.target.result;
+                    localStorage.setItem('webapp_icon', iconDataUrl);
+                    alert('Icon selected!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
