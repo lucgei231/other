@@ -6,12 +6,21 @@
     <title>Redirecting...</title>
     <link rel="manifest" href="manifest.json">
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+      console.log("This message appears first");
+
+setTimeout(function() {
+    console.log("it has been 4 seconds");
+
+
+
+
+      document.addEventListener('DOMContentLoaded', function () {
             var url = localStorage.getItem('webapp_url');
             if (url) {
                 window.location.href = url;
             }
         });
+    }, 4000);       
     </script>
 </head>
 <body>
