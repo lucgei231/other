@@ -58,6 +58,7 @@ function displayQuiz(container, questions) {
             answerElement.addEventListener('click', () => {
                 if (answer.correct) {
                     alert('Correct!');
+                    Notification('hello')
                 } else {
                     alert('Wrong!');
                 }
