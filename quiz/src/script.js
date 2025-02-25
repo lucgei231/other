@@ -80,11 +80,11 @@ function displayQuiz(container, questions) {
             answerElement.textContent = answer.text;
             answerElement.addEventListener('click', () => {
                 if (answer.correct) {
-                    alert('Correct!');
                     Notify('Correct!');
+                    alert('Correct!');                    
                 } else {
-                    alert('Wrong!');
                     Notify('Wrong!');
+                    alert('Wrong!');
                 }
             });
             questionElement.appendChild(answerElement);
