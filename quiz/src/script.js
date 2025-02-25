@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const quizContainer = document.getElementById('quiz-container');
             const questions = parseQuiz(data);
-            displayQuiz(quizContainer, questions);
+            startQuiz(quizContainer, questions);
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
@@ -42,18 +42,15 @@ function parseQuiz(data) {
 
     return questions;
 }
+
 function Notify(message) {
-    // Check if the browser supports notifications
     if (!("Notification" in window)) {
         alert("This browser does not support desktop notifications");
     } else if (Notification.permission === "granted") {
-        // If the user has granted permission, create a notification
         new Notification(message);
     } else if (Notification.permission === "denied") {
-        // If the user has denied permission, don't ask again
         console.log("Notifications are denied by the user.");
     } else {
-        // If the user hasn't decided yet, ask for permission
         Notification.requestPermission().then(permission => {
             if (permission === "granted") {
                 new Notification(message);
@@ -64,10 +61,13 @@ function Notify(message) {
     }
 }
 
-// Example usage
+function startQuiz(container, questions) {
+    let currentQuestionIndex = 0;
+    let correctAnswers = 0;
 
-function displayQuiz(container, questions) {
-    questions.forEach((question, index) => {
+    function showQuestion() {
+        container.innerHTML = '';
+        const question = questions[currentQuestionIndex];
         const questionElement = document.createElement('div');
         questionElement.classList.add('question');
 
@@ -81,15 +81,32 @@ function displayQuiz(container, questions) {
             answerElement.addEventListener('click', () => {
                 if (answer.correct) {
                     Notify('Correct!');
-                    alert('Correct!');                    
+                    alert('Correct!');
+                    correctAnswers++;
                 } else {
                     Notify('Wrong!');
                     alert('Wrong!');
+                }
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    showResults();
                 }
             });
             questionElement.appendChild(answerElement);
         });
 
         container.appendChild(questionElement);
-    });
+    }
+
+    function showResults() {
+        container.innerHTML = '';
+        const resultElement = document.createElement('div');
+        resultElement.classList.add('result');
+        resultElement.textContent = `You got ${correctAnswers} out of ${questions.length} correct!`;
+        container.appendChild(resultElement);
+    }
+
+    showQuestion();
 }
