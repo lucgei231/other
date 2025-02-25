@@ -81,11 +81,9 @@ function startQuiz(container, questions) {
             answerElement.addEventListener('click', () => {
                 if (answer.correct) {
                     Notify('Correct!');
-                    alert('Correct!');
                     correctAnswers++;
                 } else {
                     Notify('Wrong!');
-                    alert('Wrong!');
                 }
                 currentQuestionIndex++;
                 if (currentQuestionIndex < questions.length) {
