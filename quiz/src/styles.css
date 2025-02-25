@@ -3,7 +3,9 @@ body {
     text-align: center;
     background-color: #f0f0f0;
 }
-
+::backdrop {
+    background-color: gradient(to right, pink, purple);
+}
 #quiz-container {
     margin-top: 20px;
 }
