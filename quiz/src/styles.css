@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: linear-gradient(to right, pink, purple);
+    background: linear-gradient(to right, pink, purple);
 }
 ::backdrop {
     background-color: gradient(to right, pink, purple);
