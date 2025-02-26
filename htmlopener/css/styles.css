@@ -14,6 +14,7 @@ body {
     flex-direction: column;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100vh;
 }
 
 .container h1 {
@@ -35,4 +36,35 @@ body {
     border-top: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
+    width: 100%;
+    height: calc(100% - 80px); /* Adjust height to be flush with the header */
+}
+
+#fullscreen-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: none;
+}
+
+.fullscreen .output {
+    height: 100%;
+    border-top: none;
 }

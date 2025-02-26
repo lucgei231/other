@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             reader.onload = function(e) {
                 displayArea.innerHTML = e.target.result;
+                // Execute embedded scripts
+                const scripts = displayArea.getElementsByTagName('script');
+                for (let i = 0; i < scripts.length; i++) {
+                    eval(scripts[i].innerText);
+                }
             };
 
             reader.readAsText(file);
