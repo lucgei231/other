@@ -1,0 +1,159 @@
+<!-- Single-file version: windows7.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows 7 Web OS</title>
+  <style>
+    /* Desktop Background */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #desktop {
+      background: url('https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Windows_7_Wallpaper.jpg/1280px-Windows_7_Wallpaper.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    /* Desktop Icons */
+    .icon {
+      width: 80px;
+      text-align: center;
+      cursor: pointer;
+      margin: 15px;
+      float: left;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+    }
+    .icon img {
+      width: 48px;
+      height: 48px;
+      display: block;
+      margin: 0 auto;
+    }
+    /* Taskbar */
+    #taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+    #start-button {
+      background-color: #0078d7;
+      border: none;
+      padding: 5px 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+    #task-list { flex-grow: 1; }
+    #clock {
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="desktop">
+    <!-- Desktop Icons -->
+    <div class="icon" id="icon-notepad">
+      <img src="" alt="Notepad">
+      <span>Notepad</span>
+    </div>
+    <div class="icon" id="icon-calculator">
+      <img src="" alt="Calculator">
+      <span>Calculator</span>
+    </div>
+    <div class="icon" id="icon-paint">
+      <img src="" alt="Paint">
+      <span>Paint</span>
+    </div>
+    <div class="icon" id="icon-browser">
+      <img src="" alt="Browser">
+      <span>Browser</span>
+    </div>
+    <div class="icon" id="icon-media-player">
+      <img src="" alt="Media Player">
+      <span>Media Player</span>
+    </div>
+    <div class="icon" id="icon-solitaire">
+      <img src="" alt="Solitaire">
+      <span>Solitaire</span>
+    </div>
+    <div class="icon" id="icon-minesweeper">
+      <img src="" alt="Minesweeper">
+      <span>Minesweeper</span>
+    </div>
+    <div class="icon" id="icon-wordpad">
+      <img src="" alt="Wordpad">
+      <span>Wordpad</span>
+    </div>
+    <div class="icon" id="icon-snipping-tool">
+      <img src="" alt="Snipping Tool">
+      <span>Snipping Tool</span>
+    </div>
+    <div class="icon" id="icon-sticky-notes">
+      <img src="" alt="Sticky Notes">
+      <span>Sticky Notes</span>
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div id="taskbar">
+    <button id="start-button">Start</button>
+    <div id="task-list"></div>
+    <div id="clock"></div>
+  </div>
+
+  <script>
+    // Icon definition object (replaces external JSON)
+    const icons = {
+      "notepad": "https://img.icons8.com/fluency/48/000000/notepad.png",
+      "calculator": "https://img.icons8.com/fluent/48/000000/calculator.png",
+      "paint": "https://img.icons8.com/fluency/48/000000/paint-palette.png",
+      "browser": "https://img.icons8.com/fluency/48/000000/internet.png",
+      "media-player": "https://img.icons8.com/fluency/48/000000/media-player.png",
+      "solitaire": "https://img.icons8.com/fluency/48/000000/card-playing.png",
+      "minesweeper": "https://img.icons8.com/fluency/48/000000/bomb.png",
+      "wordpad": "https://img.icons8.com/fluency/48/000000/document.png",
+      "snipping-tool": "https://img.icons8.com/fluency/48/000000/scissor.png",
+      "sticky-notes": "https://img.icons8.com/fluency/48/000000/sticky-notes.png"
+    };
+
+    // Assign icons to each desktop element
+    document.querySelector('#icon-notepad img').src = icons.notepad;
+    document.querySelector('#icon-calculator img').src = icons.calculator;
+    document.querySelector('#icon-paint img').src = icons.paint;
+    document.querySelector('#icon-browser img').src = icons.browser;
+    document.querySelector('#icon-media-player img').src = icons["media-player"];
+    document.querySelector('#icon-solitaire img').src = icons.solitaire;
+    document.querySelector('#icon-minesweeper img').src = icons.minesweeper;
+    document.querySelector('#icon-wordpad img').src = icons.wordpad;
+    document.querySelector('#icon-snipping-tool img').src = icons["snipping-tool"];
+    document.querySelector('#icon-sticky-notes img').src = icons["sticky-notes"];
+
+    // Update taskbar clock
+    function updateClock() {
+      const clock = document.getElementById('clock');
+      const now = new Date();
+      clock.textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // (Optional: Add event listeners here to open simulated app windows when icons are clicked)
+  </script>
+</body>
+</html>
