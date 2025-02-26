@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RebornOS</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <div id="taskbar">
+        <div id="start-button">Start</div>
+        <div id="taskbar-icons">
+            <!-- Taskbar icons will be dynamically generated here -->
+        </div>
+    </div>
+    <div id="desktop">
+        <h1>Welcome to RebornOS</h1>
+        <div id="app-container">
+            <!-- Application windows will be dynamically generated here -->
+        </div>
+    </div>
+    <div id="start-menu" class="hidden">
+        <ul>
+            <li onclick="launchApp('notepad')">Notepad</li>
+            <li onclick="launchApp('calculator')">Calculator</li>
+            <li onclick="launchApp('paint')">Paint</li>
+            <li onclick="launchApp('browser')">Browser</li>
+            <li onclick="launchApp('media-player')">Media Player</li>
+            <li onclick="launchApp('solitaire')">Solitaire</li>
+            <li onclick="launchApp('minesweeper')">Minesweeper</li>
+            <li onclick="launchApp('wordpad')">WordPad</li>
+            <li onclick="launchApp('snipping-tool')">Snipping Tool</li>
+            <li onclick="launchApp('sticky-notes')">Sticky Notes</li>
+        </ul>
+    </div>
+</body>
+</html>
