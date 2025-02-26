@@ -1,0 +1,308 @@
+<!-- windows7.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 7 Web OS</title>
+    <style>
+        /* Base styles and desktop background */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            height: 100%;
+            overflow: hidden;
+        }
+        #desktop {
+            width: 100%;
+            height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Windows_7_Wallpaper.jpg/1280px-Windows_7_Wallpaper.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        /* Desktop icon styles */
+        .icon {
+            width: 80px;
+            text-align: center;
+            cursor: pointer;
+            margin: 10px;
+            float: left;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+        .icon img {
+            width: 48px;
+            height: 48px;
+            display: block;
+            margin: 0 auto;
+        }
+        .icon span {
+            display: block;
+            font-size: 0.8em;
+            margin-top: 3px;
+        }
+        /* Taskbar style */
+        #taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            z-index: 1000;
+        }
+        #start-button {
+            background-color: #0078d7;
+            border: none;
+            padding: 5px 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+        #clock {
+            margin-left: auto;
+            color: white;
+            font-weight: bold;
+        }
+        /* App window styles */
+        .app-window {
+            position: absolute;
+            width: 400px;
+            height: 300px;
+            background: #fff url('https://www.transparenttextures.com/patterns/diagmonds.png');
+            border: 1px solid #666;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+            z-index: 2000;
+        }
+        .app-window .title-bar {
+            background: linear-gradient(to right, #1e5799, #2989d8);
+            color: white;
+            padding: 5px 10px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .app-window .title-bar button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .app-window .content {
+            padding: 10px;
+            height: calc(100% - 32px);
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="desktop">
+        <!-- User Applications -->
+        <div class="icon" data-app="notepad">
+            <img src="https://img.icons8.com/fluency/48/000000/notepad.png" alt="Notepad">
+            <span>Notepad</span>
+        </div>
+        <div class="icon" data-app="calculator">
+            <img src="https://img.icons8.com/fluent/48/000000/calculator.png" alt="Calculator">
+            <span>Calculator</span>
+        </div>
+        <div class="icon" data-app="paint">
+            <img src="https://img.icons8.com/fluency/48/000000/paint-palette.png" alt="Paint">
+            <span>Paint</span>
+        </div>
+        <div class="icon" data-app="browser">
+            <img src="https://img.icons8.com/fluency/48/000000/internet.png" alt="Browser">
+            <span>Browser</span>
+        </div>
+        <div class="icon" data-app="media-player">
+            <img src="https://img.icons8.com/fluency/48/000000/media-player.png" alt="Media Player">
+            <span>Media Player</span>
+        </div>
+        <div class="icon" data-app="solitaire">
+            <img src="https://img.icons8.com/fluency/48/000000/card-playing.png" alt="Solitaire">
+            <span>Solitaire</span>
+        </div>
+        <div class="icon" data-app="minesweeper">
+            <img src="https://img.icons8.com/fluency/48/000000/bomb.png" alt="Minesweeper">
+            <span>Minesweeper</span>
+        </div>
+        <div class="icon" data-app="wordpad">
+            <img src="https://img.icons8.com/fluency/48/000000/document.png" alt="Wordpad">
+            <span>Wordpad</span>
+        </div>
+        <div class="icon" data-app="snipping-tool">
+            <img src="https://img.icons8.com/fluency/48/000000/scissor.png" alt="Snipping Tool">
+            <span>Snipping Tool</span>
+        </div>
+        <div class="icon" data-app="sticky-notes">
+            <img src="https://img.icons8.com/fluency/48/000000/sticky-notes.png" alt="Sticky Notes">
+            <span>Sticky Notes</span>
+        </div>
+        <!-- System Applications -->
+        <div class="icon" data-app="control-panel">
+            <img src="https://img.icons8.com/fluency/48/000000/settings.png" alt="Control Panel">
+            <span>Control Panel</span>
+        </div>
+        <div class="icon" data-app="file-explorer">
+            <img src="https://img.icons8.com/fluency/48/000000/folder-invoices.png" alt="File Explorer">
+            <span>File Explorer</span>
+        </div>
+        <div class="icon" data-app="media-center">
+            <img src="https://img.icons8.com/fluency/48/000000/video-playlist.png" alt="Media Center">
+            <span>Media Center</span>
+        </div>
+        <div class="icon" data-app="windows-mail">
+            <img src="https://img.icons8.com/fluency/48/000000/new-post.png" alt="Windows Mail">
+            <span>Mail</span>
+        </div>
+        <div class="icon" data-app="live-messenger">
+            <img src="https://img.icons8.com/fluency/48/000000/chat.png" alt="Live Messenger">
+            <span>Messenger</span>
+        </div>
+        <div class="icon" data-app="windows-update">
+            <img src="https://img.icons8.com/fluency/48/000000/automatic-updates.png" alt="Windows Update">
+            <span>Update</span>
+        </div>
+        <div class="icon" data-app="windows-defender">
+            <img src="https://img.icons8.com/fluency/48/000000/shield.png" alt="Windows Defender">
+            <span>Defender</span>
+        </div>
+        <div class="icon" data-app="task-manager">
+            <img src="https://img.icons8.com/fluency/48/000000/task-manager.png" alt="Task Manager">
+            <span>Task Manager</span>
+        </div>
+        <div class="icon" data-app="windows-search">
+            <img src="https://img.icons8.com/fluency/48/000000/search.png" alt="Windows Search">
+            <span>Search</span>
+        </div>
+        <div class="icon" data-app="clock-calendar">
+            <img src="https://img.icons8.com/fluency/48/000000/clock.png" alt="Clock">
+            <span>Clock</span>
+        </div>
+        <div class="icon" data-app="sound-recorder">
+            <img src="https://img.icons8.com/fluency/48/000000/microphone.png" alt="Sound Recorder">
+            <span>Sound Recorder</span>
+        </div>
+    </div>
+    <!-- Taskbar -->
+    <div id="taskbar">
+        <button id="start-button">Start</button>
+        <div id="task-list"></div>
+        <div id="clock"></div>
+    </div>
+    <script>
+        // Maintain a list of opened windows for z-index control
+        let highestZ = 2100;
+        // Define dummy content per app (feel free to expand these)
+        const appData = {
+            "notepad": { title: "Notepad", content: "<p>Type away...</p>" },
+            "calculator": { title: "Calculator", content: "<p>[Calculator Interface]</p>" },
+            "paint": { title: "Paint", content: "<p>[Paint Interface]</p>" },
+            "browser": { title: "Browser", content: "<p>[Minimal Browser Simulation]</p>" },
+            "media-player": { title: "Media Player", content: "<p>[Media Player Controls]</p>" },
+            "solitaire": { title: "Solitaire", content: "<p>[Solitaire Game]</p>" },
+            "minesweeper": { title: "Minesweeper", content: "<p>[Minesweeper Game]</p>" },
+            "wordpad": { title: "Wordpad", content: "<p>[Rich Text Editor]</p>" },
+            "snipping-tool": { title: "Snipping Tool", content: "<p>[Screen Capture Utility]</p>" },
+            "sticky-notes": { title: "Sticky Notes", content: "<p>[Quick Notes]</p>" },
+            "control-panel": { title: "Control Panel", content: "<p>[System Settings]</p>" },
+            "file-explorer": { title: "File Explorer", content: "<p>[Files and Folders]</p>" },
+            "media-center": { title: "Media Center", content: "<p>[Media Library]</p>" },
+            "windows-mail": { title: "Mail", content: "<p>[Email Client Interface]</p>" },
+            "live-messenger": { title: "Messenger", content: "<p>[Instant Messaging]</p>" },
+            "windows-update": { title: "Windows Update", content: "<p>[System Update Checker]</p>" },
+            "windows-defender": { title: "Windows Defender", content: "<p>[Security Center]</p>" },
+            "task-manager": { title: "Task Manager", content: "<p>[Running Processes]</p>" },
+            "windows-search": { title: "Search", content: "<p>[File and App Search]</p>" },
+            "clock-calendar": { title: "Clock & Calendar", content: "<p>[Current Time and Date]</p>" },
+            "sound-recorder": { title: "Sound Recorder", content: "<p>[Record your voice]</p>" }
+        };
+
+        // Set up clock update in taskbar
+        function updateClock() {
+            const clockEl = document.getElementById('clock');
+            const now = new Date();
+            clockEl.textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Create a draggable app window
+        function createAppWindow(appKey) {
+            const data = appData[appKey];
+            if (!data) return;
+            const win = document.createElement('div');
+            win.classList.add('app-window');
+            win.style.zIndex = highestZ++;
+            // Default location randomized slightly
+            win.style.top = Math.floor(Math.random() * 200 + 50) + "px";
+            win.style.left = Math.floor(Math.random() * 300 + 50) + "px";
+            win.innerHTML = `
+                <div class="title-bar">
+                    <span>${data.title}</span>
+                    <button class="close-btn">X</button>
+                </div>
+                <div class="content">${data.content}</div>
+            `;
+            // Append to desktop
+            document.getElementById('desktop').appendChild(win);
+            addDragFunctionality(win);
+            // Bring to front on click
+            win.addEventListener('mousedown', () => {
+                win.style.zIndex = highestZ++;
+            });
+            // Handle close
+            win.querySelector('.close-btn').addEventListener('click', () => {
+                win.remove();
+            });
+        }
+
+        // Enable dragging for a given window via its title bar.
+        function addDragFunctionality(win) {
+            const header = win.querySelector('.title-bar');
+            let offsetX = 0, offsetY = 0, isDragging = false;
+            header.addEventListener('mousedown', e => {
+                isDragging = true;
+                offsetX = e.clientX - win.offsetLeft;
+                offsetY = e.clientY - win.offsetTop;
+                win.style.zIndex = highestZ++;
+            });
+            document.addEventListener('mousemove', e => {
+                if (isDragging) {
+                    win.style.left = (e.clientX - offsetX) + 'px';
+                    win.style.top = (e.clientY - offsetY) + 'px';
+                }
+            });
+            document.addEventListener('mouseup', () => isDragging = false);
+        }
+
+        // Add click events for each desktop icon
+        document.querySelectorAll('.icon').forEach(icon => {
+            icon.addEventListener('dblclick', () => {
+                const appKey = icon.getAttribute('data-app');
+                createAppWindow(appKey);
+            });
+            // Single-click selects the icon (optional)
+            icon.addEventListener('click', () => {
+                document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
+                icon.classList.add('selected');
+            });
+        });
+
+        // Optional: Implement the Start button behavior
+        document.getElementById('start-button').addEventListener('click', () => {
+            alert("Start Menu clicked (not implemented)");
+        });
+    </script>
+</body>
+</html>
