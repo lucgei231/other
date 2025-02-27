@@ -42,10 +42,10 @@ function parseQuiz(data) {
 
     return questions;
 }
-
+//Notification Function
 function Notify(message) {
     if (!("Notification" in window)) {
-        alert("This browser does not support desktop notifications");
+        console.error("This browser does not support desktop notifications");
     } else if (Notification.permission === "granted") {
         new Notification(message);
     } else if (Notification.permission === "denied") {
@@ -79,11 +79,14 @@ function startQuiz(container, questions) {
             const answerElement = document.createElement('button');
             answerElement.textContent = answer.text;
             answerElement.addEventListener('click', () => {
+                //Correct Answer
                 if (answer.correct) {
                     Notify('Correct!');
                     alert('Correct')
                     correctAnswers++;
-                } else {
+                }
+                //Incorrect Answer
+                else {
                     Notify('Wrong!');
                     alert('Wrong!')
                 }
