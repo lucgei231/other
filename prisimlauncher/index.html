@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /> <!-- UTF-8 charset -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Responsive settings -->
+  <title>Prisim Launcher (Concept)</title>
+  <style>
+    /* Reset and base styles */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #202225;
+      color: #eee;
+    }
+    header {
+      background: #2f3136;
+      padding: 10px 20px;
+      font-size: 24px;
+      text-align: center;
+      border-bottom: 1px solid #444;
+    }
+    .container {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+    /* Sidebar for account info and version list */
+    .sidebar {
+      background: #2f3136;
+      width: 300px;
+      padding: 20px;
+      border-right: 1px solid #444;
+      overflow-y: auto;
+    }
+    .sidebar section {
+      margin-bottom: 20px;
+    }
+    .sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .version-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .version-list li {
+      padding: 8px 12px;
+      background: #36393f;
+      margin-bottom: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .version-list li:hover, .version-list li.active {
+      background: #7289da;
+    }
+    /* Main content area: news and launch section */
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .news {
+      margin-bottom: 20px;
+      background: #2f3136;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    .launch-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .launch-button {
+      background: #7289da;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+    .launch-button:hover {
+      background: #5b6eae;
+    }
+    /* Login section styles */
+    .login-section {
+      background: #36393f;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .login-section input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background: #2f3136;
+      color: #eee;
+    }
+    .login-section button {
+      background: #7289da;
+      border: none;
+      padding: 8px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-section button:hover {
+      background: #5b6eae;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Prisim Launcher (Concept)
+  </header>
+  <div class="container">
+    <!-- Sidebar with login info and version list -->
+    <div class="sidebar">
+      <section class="login-section">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
+        <button id="loginButton">Log In</button>
+      </section>
+      <section>
+        <h2>Available Versions</h2>
+        <ul class="version-list" id="versionList">
+          <!-- Dynamically generated version items -->
+        </ul>
+      </section>
+    </div>
+    <!-- Main content area with news and launch controls -->
+    <div class="content">
+      <section class="news">
+        <h2>News & Updates</h2>
+        <p>Welcome to Prisim Launcher! Stay tuned for the latest updates and patch notes here.</p>
+      </section>
+      <section class="launch-section">
+        <h2>Launcher</h2>
+        <div id="selectedVersion">No version selected.</div>
+        <button class="launch-button" id="launchButton">Launch Minecraft</button>
+        <div id="launchOutput" style="margin-top: 20px;"></div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // Sample version array mimicking launcher versions
+    const versions = [
+      "Prisim 1.0 - Classic",
+      "Prisim 1.1 - Bug Fixes",
+      "Prisim 1.2 - New UI",
+      "Prisim 2.0 - Major Update",
+      "Prisim 2.1 - Stability Update",
+      "Prisim 3.0 - Feature Expansion",
+      "Prisim 3.1 - Performance Boost"
+    ];
+  
+    const versionListElem = document.getElementById('versionList');
+    const selectedVersionElem = document.getElementById('selectedVersion');
+    let activeVersion = null;
+  
+    // Populate version list with clickable items
+    versions.forEach((version, index) => {
+      const li = document.createElement('li');
+      li.textContent = version;
+      li.addEventListener('click', () => {
+        // Remove active state from all list items
+        document.querySelectorAll('.version-list li').forEach(item => item.classList.remove('active'));
+        li.classList.add('active');
+        activeVersion = version;
+        selectedVersionElem.textContent = "Selected: " + version;
+      });
+      versionListElem.appendChild(li);
+    });
+  
+    // Login button simulation (no actual authentication)
+    document.getElementById('loginButton').addEventListener('click', () => {
+      const username = document.getElementById('username').value.trim();
+      if (username.length === 0) {
+        alert("Please enter a username.");
+        return;
+      }
+      alert("Logged in as " + username + " (simulated).");
+    });
+  
+    // Launch button simulates starting the selected version
+    document.getElementById('launchButton').addEventListener('click', () => {
+      const output = document.getElementById('launchOutput');
+      if (!activeVersion) {
+        output.textContent = "Please select a version to launch.";
+        return;
+      }
+      output.textContent = "Launching " + activeVersion + "...";
+      // Simulate asynchronous launching process
+      setTimeout(() => {
+        output.textContent += "\n" + activeVersion + " launched successfully (simulation).";
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
