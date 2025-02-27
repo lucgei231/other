@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Set the character encoding to UTF-8 -->
+  <meta charset="UTF-8" />
+  <!-- Enable responsive viewport settings -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulated Microsoft Edge with Inline Comments</title>
+  <style>
+    /* Basic styling for HTML and body */
+    html, body {
+      margin: 0; /* Remove default margin */
+      padding: 0; /* Remove default padding */
+      height: 100%; /* Full height */
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Use a modern font */
+      background: #f3f3f3; /* Light gray background */
+    }
+
+    /* Styling for the toolbar container */
+    .edge-toolbar {
+      display: flex; /* Use flexbox layout */
+      align-items: center; /* Center items vertically */
+      background: #0078d7; /* Microsoft Edge blue */
+      padding: 5px 10px; /* Spacing inside the toolbar */
+      color: #fff; /* White text */
+    }
+
+    /* Styling for buttons in the toolbar */
+    .edge-toolbar button {
+      background: transparent; /* No background color */
+      border: none; /* Remove border */
+      color: #fff; /* White text */
+      font-size: 1.2em; /* Increase font size */
+      margin-right: 10px; /* Space to the right */
+      cursor: pointer; /* Pointer on hover */
+    }
+
+    /* Container for the address bar (input) */
+    .edge-address-bar {
+      flex-grow: 1; /* Take up remaining space */
+      display: flex; /* Use flexbox layout */
+      align-items: center; /* Center items vertically */
+    }
+
+    /* Styling for the input field inside the address bar */
+    .edge-address-bar input {
+      width: 100%; /* Full width */
+      padding: 8px; /* Padding inside the input */
+      border: none; /* No border */
+      border-radius: 3px; /* Rounded corners */
+      font-size: 1em; /* Standard font size */
+    }
+
+    /* Remove default focus outline when input is selected */
+    .edge-address-bar input:focus {
+      outline: none;
+    }
+
+    /* Styling for the iframe that loads websites */
+    #edge-content {
+      width: 100%; /* Full width */
+      height: calc(100% - 50px); /* Full height minus toolbar height */
+      border: none; /* Remove border */
+    }
+  </style>
+</head>
+<body>
+  <!-- Toolbar container -->
+  <div class="edge-toolbar">
+    <!-- Back button -->
+    <button id="back-button">&larr;</button>
+    <!-- Forward button -->
+    <button id="forward-button">&rarr;</button>
+    <!-- Refresh button -->
+    <button id="refresh-button">&#x21bb;</button>
+    <!-- Address bar container -->
+    <div class="edge-address-bar">
+      <!-- Input field for the URL (default value set to Bing) -->
+      <input type="text" id="address-input" placeholder="Enter URL..." value="https://www.bing.com" />
+    </div>
+    <!-- Go button -->
+    <button id="go-button">Go</button>
+  </div>
+
+  <!-- Iframe to display the loaded webpage -->
+  <iframe id="edge-content" src="https://www.bing.com"></iframe>
+
+  <script>
+    // Get references to DOM elements
+    const addressInput = document.getElementById('address-input'); // URL input element
+    const contentFrame = document.getElementById('edge-content');     // Iframe element
+    const backButton = document.getElementById('back-button');        // Back button
+    const forwardButton = document.getElementById('forward-button');  // Forward button
+    const refreshButton = document.getElementById('refresh-button');  // Refresh button
+    const goButton = document.getElementById('go-button');            // Go button
+
+    // Function to navigate to a new URL based on the input field
+    function navigate() {
+      let url = addressInput.value.trim(); // Get URL input and trim whitespace
+      // If the URL doesn't start with 'http://' or 'https://', prepend 'https://'
+      if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
+      }
+      contentFrame.src = url; // Set the iframe's source to the new URL
+    }
+
+    // When the "Go" button is clicked, navigate to the URL
+    goButton.addEventListener('click', navigate);
+
+    // When the Enter key is pressed in the input field, navigate to the URL
+    addressInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        navigate();
+      }
+    });
+
+    // Refresh the webpage in the iframe when the refresh button is clicked
+    refreshButton.addEventListener('click', () => {
+      contentFrame.contentWindow.location.reload();
+    });
+
+    // Navigate back in the iframe's history when the back button is clicked
+    backButton.addEventListener('click', () => {
+      try {
+        contentFrame.contentWindow.history.back();
+      } catch (err) {
+        console.warn("Back navigation is not available:", err);
+      }
+    });
+
+    // Navigate forward in the iframe's history when the forward button is clicked
+    forwardButton.addEventListener('click', () => {
+      try {
+        contentFrame.contentWindow.history.forward();
+      } catch (err) {
+        console.warn("Forward navigation is not available:", err);
+      }
+    });
+  </script>
+</body>
+</html>
