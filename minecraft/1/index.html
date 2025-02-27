@@ -1,108 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concept Minecraft in JS</title>
-    <style>
-        /* Basic reset and styling */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background: #87CEEB; /* Sky-blue background */
-        }
-        canvas {
-            display: block;
-            background: #555; /* Ground color */
-            margin: 0 auto;
-        }
-        #instructions {
-            text-align: center;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" /> <!-- UTF-8 charset -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Responsive settings -->
+  <title>Concept 3D Minecraft in JS</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #87CEEB; } /* Sky-blue background */
+    canvas { display: block; }
+    #instructions {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-family: Arial, sans-serif;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      padding: 10px;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-    <div id="instructions">Left-click to remove a block, right-click to add a block, refresh to reset.</div>
-    <canvas id="gameCanvas" width="640" height="480"></canvas>
-    <script>
-        // Define game parameters
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const blockSize = 32;
-        const cols = Math.floor(canvas.width / blockSize);
-        const rows = Math.floor(canvas.height / blockSize);
-        // A simple 2D array representing the world (1 = block exists, 0 = empty)
-        let world = [];
-        function initWorld() {
-            world = [];
-            // Fill bottom half with blocks to simulate terrain
-            for (let r = 0; r < rows; r++) {
-                world[r] = [];
-                for (let c = 0; c < cols; c++) {
-                    // Let’s fill the bottom half with blocks and leave the top half empty (sky)
-                    world[r][c] = r >= Math.floor(rows / 2) ? 1 : 0;
-                }
-            }
+  <div id="instructions">
+    Left-click: Remove block<br>
+    Right-click: Add block<br>
+    (Refresh page to reset)
+  </div>
+  <!-- Include Three.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Basic Three.js setup: scene, camera, renderer
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x87ceeb); // Sky-blue
+
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(10, 15, 20);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Add a basic ambient and directional light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(5, 10, 7.5);
+    scene.add(directionalLight);
+
+    // Parameters for the block grid
+    const blockSize = 1;
+    const rows = 10, cols = 10;
+    // Store blocks in an object for easy lookup
+    const blocks = {};
+
+    // Create a material for blocks
+    const blockMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 }); // Brown
+
+    // Generate blocks on a flat plane (centered)
+    const offsetX = -cols / 2, offsetZ = -rows / 2;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const geometry = new THREE.BoxGeometry(blockSize, blockSize, blockSize);
+        const cube = new THREE.Mesh(geometry, blockMaterial);
+        cube.position.set(offsetX + c + 0.5, blockSize/2, offsetZ + r + 0.5);
+        scene.add(cube);
+        // Use a key based on grid coordinates
+        blocks[`${c},${r},0`] = cube;
+      }
+    }
+
+    // Setup raycaster for mouse interaction
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    // Disable the default context menu so right-click can be used
+    window.addEventListener('contextmenu', function (e) { e.preventDefault(); }, false);
+
+    // Function to handle clicks
+    function onMouseDown(event) {
+      // Calculate mouse position in normalized device coordinates (-1 to +1)
+      mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+      mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(scene.children);
+      if (intersects.length > 0) {
+        const intersect = intersects[0];
+        if (event.button === 0) {
+          // Left-click: remove block if it is a cube
+          if (intersect.object.geometry.type === "BoxGeometry") {
+            scene.remove(intersect.object);
+          }
+        } else if (event.button === 2) {
+          // Right-click: add new block adjacent to the clicked face
+          const normal = intersect.face.normal.clone();
+          // Convert normal to world space (absent rotation on cubes this is fine)
+          const position = intersect.point.clone().add(normal.multiplyScalar(0.5));
+          // Snap to grid by rounding position
+          const gridX = Math.floor(position.x);
+          const gridY = Math.floor(position.y);
+          const gridZ = Math.floor(position.z);
+          const geometry = new THREE.BoxGeometry(blockSize, blockSize, blockSize);
+          const cube = new THREE.Mesh(geometry, blockMaterial);
+          cube.position.set(gridX + 0.5, gridY + 0.5, gridZ + 0.5);
+          scene.add(cube);
         }
-        initWorld();
+      }
+    }
+      
+    window.addEventListener('mousedown', onMouseDown, false);
 
-        // Render the world grid on the canvas.
-        function drawWorld() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    if (world[r][c] === 1) {
-                        // Draw a block with a simple texture (color and grid)
-                        ctx.fillStyle = "#8B4513"; // Brown for dirt
-                        ctx.fillRect(c * blockSize, r * blockSize, blockSize, blockSize);
-                        ctx.strokeStyle = "#5C3317";
-                        ctx.strokeRect(c * blockSize, r * blockSize, blockSize, blockSize);
-                    }
-                }
-            }
-        }
-        drawWorld();
+    // Adjust the renderer on window resize
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
 
-        // Convert mouse coordinates to grid coordinates.
-        function getGridPosition(event) {
-            const rect = canvas.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            const c = Math.floor(x / blockSize);
-            const r = Math.floor(y / blockSize);
-            return { r, c };
-        }
+    // Simple orbit controls for navigation (for demo purposes, without imported OrbitControls)
+    let isDragging = false, previousMousePosition = { x: 0, y: 0 };
+    renderer.domElement.addEventListener('mousedown', e => {
+      isDragging = true;
+    });
+    renderer.domElement.addEventListener('mousemove', e => {
+      if (isDragging) {
+        const deltaMove = { x: e.clientX - previousMousePosition.x, y: e.clientY - previousMousePosition.y };
+        const rotationSpeed = 0.005;
+        camera.position.x -= deltaMove.x * rotationSpeed;
+        camera.position.z -= deltaMove.y * rotationSpeed;
+        camera.lookAt(scene.position);
+      }
+      previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+    renderer.domElement.addEventListener('mouseup', e => {
+      isDragging = false;
+    });
 
-        // Left-click to remove a block.
-        canvas.addEventListener("click", (event) => {
-            const pos = getGridPosition(event);
-            if (world[pos.r] && world[pos.r][pos.c] === 1) {
-                world[pos.r][pos.c] = 0;
-                drawWorld();
-            }
-        });
-
-        // Right-click to add a block.
-        canvas.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-            const pos = getGridPosition(event);
-            if (world[pos.r] && world[pos.r][pos.c] === 0) {
-                world[pos.r][pos.c] = 1;
-                drawWorld();
-            }
-        });
-
-        // Optional: reset world on pressing the 'r' key.
-        document.addEventListener("keydown", (e) => {
-            if (e.key.toLowerCase() === "r") {
-                initWorld();
-                drawWorld();
-            }
-        });
-    </script>
+    // Render loop
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
 </body>
 </html>
