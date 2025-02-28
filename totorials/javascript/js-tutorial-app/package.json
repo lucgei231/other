@@ -1,0 +1,21 @@
+{
+  "name": "js-tutorial-app",
+  "version": "1.0.0",
+  "description": "A JavaScript tutorial application with 20 lessons, each featuring download options, previews, and integrated editors.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build step not defined'"
+  },
+  "author": "Lucas Geitgey",
+  "license": "MIT",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "javascript",
+    "tutorial",
+    "education"
+  ]
+}

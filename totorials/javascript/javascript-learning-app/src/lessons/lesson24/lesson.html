@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 24</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <h1>JavaScript Lesson 24</h1>
+    <h2>Preview of JavaScript Code</h2>
+    <pre id="js-preview">
+// Example JavaScript code for Lesson 24
+function lesson24Function() {
+    console.log("This is Lesson 24!");
+}
+lesson24Function();
+    </pre>
+    <button id="download-js">Download as .js</button>
+    <button id="download-html">Download as HTML</button>
+
+    <script src="../../app.js"></script>
+    <script>
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsCode = `// Example JavaScript code for Lesson 24
+function lesson24Function() {
+    console.log("This is Lesson 24!");
+}
+lesson24Function();`;
+            const blob = new Blob([jsCode], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson24.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('download-html').addEventListener('click', function() {
+            const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 24</title>
+</head>
+<body>
+    <h1>JavaScript Lesson 24</h1>
+    <script>
+        // Example JavaScript code for Lesson 24
+        function lesson24Function() {
+            console.log("This is Lesson 24!");
+        }
+        lesson24Function();
+    </script>
+</body>
+</html>`;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson24.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

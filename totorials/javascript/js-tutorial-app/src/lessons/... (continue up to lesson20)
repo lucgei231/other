@@ -1,0 +1,138 @@
+src/lessons/lesson01/index.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 01</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body>
+    <h1>Lesson 01: Introduction to JavaScript</h1>
+    <div id="editor"></div>
+    <button id="downloadBtn">Download</button>
+    <iframe id="preview" src="preview.html"></iframe>
+    <script src="script.js"></script>
+    <script src="../components/integratedEditor.js"></script>
+    <script src="../components/preview.js"></script>
+    <script src="../components/download.js"></script>
+</body>
+</html>
+
+src/lessons/lesson01/script.js:
+console.log("Lesson 01 script loaded");
+
+src/lessons/lesson01/preview.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview - Lesson 01</title>
+</head>
+<body>
+    <h2>Preview Output</h2>
+    <div id="output"></div>
+    <script>
+        // This script will be populated with the user's code
+    </script>
+</body>
+</html>
+
+src/lessons/lesson01/editor.js:
+const editor = document.getElementById('editor');
+// Initialize the integrated code editor here
+
+src/lessons/lesson02/index.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 02</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body>
+    <h1>Lesson 02: Variables and Data Types</h1>
+    <div id="editor"></div>
+    <button id="downloadBtn">Download</button>
+    <iframe id="preview" src="preview.html"></iframe>
+    <script src="script.js"></script>
+    <script src="../components/integratedEditor.js"></script>
+    <script src="../components/preview.js"></script>
+    <script src="../components/download.js"></script>
+</body>
+</html>
+
+src/lessons/lesson02/script.js:
+console.log("Lesson 02 script loaded");
+
+src/lessons/lesson02/preview.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview - Lesson 02</title>
+</head>
+<body>
+    <h2>Preview Output</h2>
+    <div id="output"></div>
+    <script>
+        // This script will be populated with the user's code
+    </script>
+</body>
+</html>
+
+src/lessons/lesson02/editor.js:
+const editor = document.getElementById('editor');
+// Initialize the integrated code editor here
+
+// Repeat the above structure for lessons 03 to 20, changing the lesson number and content accordingly. 
+
+src/lessons/lesson03/index.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 03</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body>
+    <h1>Lesson 03: Functions</h1>
+    <div id="editor"></div>
+    <button id="downloadBtn">Download</button>
+    <iframe id="preview" src="preview.html"></iframe>
+    <script src="script.js"></script>
+    <script src="../components/integratedEditor.js"></script>
+    <script src="../components/preview.js"></script>
+    <script src="../components/download.js"></script>
+</body>
+</html>
+
+src/lessons/lesson03/script.js:
+console.log("Lesson 03 script loaded");
+
+src/lessons/lesson03/preview.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview - Lesson 03</title>
+</head>
+<body>
+    <h2>Preview Output</h2>
+    <div id="output"></div>
+    <script>
+        // This script will be populated with the user's code
+    </script>
+</body>
+</html>
+
+src/lessons/lesson03/editor.js:
+const editor = document.getElementById('editor');
+// Initialize the integrated code editor here
+
+// Continue this pattern for lessons 04 to 20, updating the lesson number and content accordingly.

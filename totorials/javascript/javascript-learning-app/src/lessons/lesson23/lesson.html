@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 23</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Lesson 23</h1>
+    <h2>Preview of JavaScript Code:</h2>
+    <pre id="code-preview">
+        // This is the JavaScript code for Lesson 23
+        function lesson23Function() {
+            console.log("Hello from Lesson 23!");
+        }
+    </pre>
+    <button onclick="downloadFile('lesson23.js', 'text/javascript')">Download as .js</button>
+    <button onclick="downloadFile('lesson23.html', 'text/html')">Download as HTML</button>
+
+    <script>
+        function downloadFile(filename, filetype) {
+            const element = document.createElement('a');
+            const code = document.getElementById('code-preview').innerText;
+            const blob = new Blob([code], { type: filetype });
+            const url = URL.createObjectURL(blob);
+            element.setAttribute('href', url);
+            element.setAttribute('download', filename);
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Tutorial - Lesson 02</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body>
+    <div class="lesson-container">
+        <h1>Lesson 02: Understanding Variables</h1>
+        <p>This lesson covers the basics of variables in JavaScript.</p>
+        
+        <div class="editor-container">
+            <h2>Code Editor</h2>
+            <textarea id="code-editor" rows="10" cols="50"></textarea>
+            <button id="run-code">Run Code</button>
+        </div>
+
+        <div class="preview-container">
+            <h2>Preview</h2>
+            <iframe id="preview-frame" src="preview.html"></iframe>
+        </div>
+
+        <div class="download-container">
+            <h2>Download Lesson Files</h2>
+            <button id="download-html">Download HTML</button>
+            <button id="download-js">Download JavaScript</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="../../components/download.js"></script>
+    <script src="../../components/preview.js"></script>
+    <script src="../../components/integratedEditor.js"></script>
+    <script>
+        // Initialize the integrated editor and preview functionality
+        integratedEditor('code-editor', 'preview-frame');
+        setupDownload('download-html', 'lesson02.html');
+        setupDownload('download-js', 'lesson02.js');
+    </script>
+</body>
+</html>

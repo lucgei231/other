@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.lesson {
+    background: #ffffff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.download-btn, .preview-btn, .editor-btn {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 10px 15px;
+    background: #5cb85c;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.download-btn:hover, .preview-btn:hover, .editor-btn:hover {
+    background: #4cae4c;
+}
+
+.editor {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    height: 300px;
+    overflow: auto;
+}
+
+.preview {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    height: 300px;
+    background: #ffffff;
+    overflow: auto;
+}

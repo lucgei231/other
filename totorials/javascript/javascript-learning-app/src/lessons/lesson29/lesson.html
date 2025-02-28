@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 29</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <h1>JavaScript Lesson 29</h1>
+    <p>This lesson covers advanced topics in JavaScript.</p>
+    
+    <h2>JavaScript Code Preview</h2>
+    <pre id="code-preview">
+        // Example JavaScript code for Lesson 29
+        function exampleFunction() {
+            console.log("This is an example function for Lesson 29.");
+        }
+    </pre>
+
+    <button id="download-js">Download as .js</button>
+    <button id="download-html">Download as HTML</button>
+
+    <script src="../../app.js"></script>
+    <script>
+        document.getElementById('download-js').addEventListener('click', function() {
+            const blob = new Blob([document.getElementById('code-preview').innerText], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson29.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('download-html').addEventListener('click', function() {
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Lesson 29</title>
+                </head>
+                <body>
+                    <h1>JavaScript Lesson 29</h1>
+                    <p>This lesson covers advanced topics in JavaScript.</p>
+                    <script>
+                        function exampleFunction() {
+                            console.log("This is an example function for Lesson 29.");
+                        }
+                    </script>
+                </body>
+                </html>
+            `;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson29.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

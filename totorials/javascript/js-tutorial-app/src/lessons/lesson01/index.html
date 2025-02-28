@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Tutorial - Lesson 01</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>JavaScript Tutorial - Lesson 01</h1>
+        <button id="downloadBtn">Download Lesson Files</button>
+    </header>
+    <main>
+        <section id="editorSection">
+            <h2>Code Editor</h2>
+            <textarea id="codeEditor" rows="10" cols="50"></textarea>
+            <button id="runCodeBtn">Run Code</button>
+        </section>
+        <section id="previewSection">
+            <h2>Preview</h2>
+            <iframe id="previewFrame" src="preview.html"></iframe>
+        </section>
+    </main>
+    <script src="script.js"></script>
+    <script src="../../components/download.js"></script>
+    <script src="../../components/preview.js"></script>
+    <script src="../../components/integratedEditor.js"></script>
+    <script>
+        // Initialize components
+        const downloadBtn = document.getElementById('downloadBtn');
+        const runCodeBtn = document.getElementById('runCodeBtn');
+        const codeEditor = document.getElementById('codeEditor');
+        const previewFrame = document.getElementById('previewFrame');
+
+        downloadBtn.addEventListener('click', () => {
+            downloadLessonFiles();
+        });
+
+        runCodeBtn.addEventListener('click', () => {
+            const code = codeEditor.value;
+            updatePreview(code);
+        });
+
+        function updatePreview(code) {
+            const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+            previewDoc.open();
+            previewDoc.write(code);
+            previewDoc.close();
+        }
+    </script>
+</body>
+</html>

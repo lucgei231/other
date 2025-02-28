@@ -1,0 +1,19 @@
+{
+  "name": "javascript-learning-app",
+  "version": "1.0.0",
+  "description": "A JavaScript learning application with 30 lessons.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "live-server src"
+  },
+  "keywords": [
+    "javascript",
+    "learning",
+    "education"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}

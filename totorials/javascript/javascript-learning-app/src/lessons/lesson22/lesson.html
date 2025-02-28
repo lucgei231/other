@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 22</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <h1>JavaScript Lesson 22</h1>
+    <p>In this lesson, we will cover advanced topics in JavaScript.</p>
+
+    <h2>JavaScript Code Preview</h2>
+    <pre id="code-preview">
+        // Lesson 22 JavaScript Code
+        function lesson22Function() {
+            console.log("This is Lesson 22!");
+        }
+    </pre>
+
+    <button id="download-js">Download as .js</button>
+    <button id="download-html">Download as HTML</button>
+
+    <script src="../../app.js"></script>
+    <script>
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsCode = `// Lesson 22 JavaScript Code
+function lesson22Function() {
+    console.log("This is Lesson 22!");
+}`;
+            const blob = new Blob([jsCode], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson22.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('download-html').addEventListener('click', function() {
+            const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 22</title>
+</head>
+<body>
+    <h1>JavaScript Lesson 22</h1>
+    <p>In this lesson, we will cover advanced topics in JavaScript.</p>
+    <script src="lesson.js"></script>
+</body>
+</html>`;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson22.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
