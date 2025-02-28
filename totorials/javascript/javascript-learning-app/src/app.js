@@ -47,7 +47,7 @@ function renderLessons() {
 </head>
 <body>
     <h1>${lesson.title}</h1>
-    <script src="lesson${lesson.number}.js"></script>
+    <script src="lesson${lesson.number}.js"></scr`+`ipt>
 </body>
 </html>
 `, `lesson${lesson.number}.html`);
