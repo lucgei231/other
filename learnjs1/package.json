@@ -1,0 +1,15 @@
+{
+  "name": "js-learning-app",
+  "version": "1.0.0",
+  "description": "A web application to teach JavaScript one command at a time.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "live-server src"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
