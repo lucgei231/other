@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 20 - Advanced JavaScript Concepts</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+    <h1>Lesson 20: Advanced JavaScript Concepts</h1>
+    <p>In this lesson, we will explore advanced concepts in JavaScript, including:</p>
+    <ul>
+        <li>Asynchronous Programming</li>
+        <li>Promises and Async/Await</li>
+        <li>Modules and Import/Export</li>
+        <li>JavaScript Design Patterns</li>
+    </ul>
+    
+    <h2>Asynchronous Programming</h2>
+    <p>Asynchronous programming allows you to perform tasks without blocking the main thread. This is essential for tasks like fetching data from an API.</p>
+    
+    <h2>Promises</h2>
+    <p>A Promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.</p>
+    <pre><code>
+const myPromise = new Promise((resolve, reject) => {
+    // Simulate an asynchronous operation
+    setTimeout(() => {
+        resolve('Promise resolved!');
+    }, 2000);
+});
+
+myPromise.then(result => {
+    console.log(result);
+});
+    </code></pre>
+    
+    <h2>Async/Await</h2>
+    <p>Async/Await is a syntax for working with Promises that makes asynchronous code look and behave like synchronous code.</p>
+    <pre><code>
+async function fetchData() {
+    const response = await myPromise;
+    console.log(response);
+}
+
+fetchData();
+    </code></pre>
+    
+    <h2>Modules</h2>
+    <p>JavaScript modules allow you to break your code into separate files, making it easier to manage and maintain.</p>
+    <pre><code>
+// module.js
+export const greeting = 'Hello, World!';
+
+// main.js
+import { greeting } from './module.js';
+console.log(greeting);
+    </code></pre>
+    
+    <h2>Design Patterns</h2>
+    <p>Design patterns are typical solutions to common problems in software design. Some common JavaScript design patterns include:</p>
+    <ul>
+        <li>Module Pattern</li>
+        <li>Observer Pattern</li>
+        <li>Singleton Pattern</li>
+    </ul>
+    
+    <h2>Conclusion</h2>
+    <p>By mastering these advanced concepts, you will be well-equipped to tackle complex JavaScript applications and improve your coding skills.</p>
+    
+    <button id="download-html">Download HTML</button>
+    <button id="download-js">Download JS</button>
+
+    <script src="lesson20.js"></script>
+</body>
+</html>

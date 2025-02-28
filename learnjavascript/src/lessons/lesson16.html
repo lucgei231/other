@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 16: Asynchronous JavaScript</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+    <h1>Lesson 16: Asynchronous JavaScript</h1>
+    <p>In this lesson, we will explore asynchronous programming in JavaScript, focusing on callbacks, promises, and async/await.</p>
+    
+    <h2>1. Callbacks</h2>
+    <p>Callbacks are functions that are passed as arguments to other functions and are executed after a certain event occurs.</p>
+    <pre><code>
+function fetchData(callback) {
+    setTimeout(() => {
+        const data = { name: 'John', age: 30 };
+        callback(data);
+    }, 1000);
+}
+
+fetchData((data) => {
+    console.log(data);
+});
+    </code></pre>
+
+    <h2>2. Promises</h2>
+    <p>Promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value.</p>
+    <pre><code>
+function fetchData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const data = { name: 'Jane', age: 25 };
+            resolve(data);
+        }, 1000);
+    });
+}
+
+fetchData().then(data => {
+    console.log(data);
+});
+    </code></pre>
+
+    <h2>3. Async/Await</h2>
+    <p>Async/await is a syntactic sugar built on top of promises, making asynchronous code easier to read and write.</p>
+    <pre><code>
+async function fetchData() {
+    const data = await new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ name: 'Doe', age: 28 });
+        }, 1000);
+    });
+    console.log(data);
+}
+
+fetchData();
+    </code></pre>
+
+    <h2>Exercises</h2>
+    <p>Try to implement the following:</p>
+    <ul>
+        <li>Create a function that fetches data using a callback.</li>
+        <li>Rewrite the callback function using promises.</li>
+        <li>Use async/await to fetch data and log it to the console.</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>Asynchronous programming is a powerful feature in JavaScript that allows you to handle operations that take time, such as network requests, without blocking the main thread.</p>
+</body>
+</html>

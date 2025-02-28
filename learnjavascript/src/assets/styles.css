@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.lesson-list {
+    list-style: none;
+    padding: 0;
+}
+
+.lesson-list li {
+    background: #ffffff;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.lesson-list li:hover {
+    background: #e2e2e2;
+}
+
+.preview {
+    border: 1px solid #dddddd;
+    margin-top: 20px;
+    height: 300px;
+}
+
+.download-buttons {
+    margin-top: 20px;
+}
+
+.download-buttons button {
+    background: #35424a;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.download-buttons button:hover {
+    background: #2c3e50;
+}

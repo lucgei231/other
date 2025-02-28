@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Preview</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <h1>Lesson Preview</h1>
+    <iframe id="lessonFrame" src="" width="100%" height="600px"></iframe>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const lesson = urlParams.get('lesson');
+        const lessonFrame = document.getElementById('lessonFrame');
+
+        if (lesson) {
+            lessonFrame.src = `lessons/${lesson}.html`;
+        } else {
+            lessonFrame.src = '';
+        }
+    </script>
+</body>
+</html>
