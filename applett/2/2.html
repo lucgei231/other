@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload and Run Java Applet</title>
+</head>
+<body>
+  <h1>Upload and Run Your Java Applet</h1>
+  <p>Ensure the CheerpJ extension is enabled in your browser.</p>
+
+  <!-- File input for the .jar file -->
+  <input type="file" id="jarFileInput" accept=".jar">
+  <button id="runAppletButton">Run Applet</button>
+
+  <div id="appletContainer">
+    <!-- This is where the applet will be dynamically injected -->
+  </div>
+
+  <script>
+    document.getElementById('runAppletButton').addEventListener('click', function () {
+      const jarFileInput = document.getElementById('jarFileInput');
+      const appletContainer = document.getElementById('appletContainer');
+
+      if (jarFileInput.files.length === 0) {
+        alert('Please upload a .jar file.');
+        return;
+      }
+
+      const file = jarFileInput.files[0];
+      const objectURL = URL.createObjectURL(file);
+
+      // Inject an applet tag dynamically
+      appletContainer.innerHTML = `
+        <applet code="MainClass" archive="${objectURL}" width="800" height="600">
+          <!-- Add necessary parameters here -->
+        </applet>
+      `;
+
+      alert('Applet injected! Make sure the CheerpJ extension is active.');
+    });
+  </script>
+</body>
+</html>
