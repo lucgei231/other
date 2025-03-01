@@ -1,9 +1,10 @@
-// This is the JavaScript code for Lesson 10 of the JavaScript learning application.
-
+// filepath: /javascript-learning-app/javascript-learning-app/src/lessons/lesson10/lesson.js
 function lesson10Function() {
-    console.log("Welcome to Lesson 10!");
-    // Add your lesson content here
+    // Example function for Lesson 10
+    const message = "Welcome to Lesson 10: Understanding Functions in JavaScript!";
+    console.log(message);
+    alert(message);
 }
 
-// Call the lesson function to execute it
+// Call the function to demonstrate its functionality
 lesson10Function();

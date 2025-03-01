@@ -1,8 +1,22 @@
-// This file contains the JavaScript code for Lesson 4.
+// Lesson 4: Functions in JavaScript
 
-function lesson4Function() {
-    console.log("Welcome to Lesson 4!");
-    // Add your lesson content here
+// Function Declaration
+function greet(name) {
+    return `Hello, ${name}!`;
 }
 
-lesson4Function();
+// Function Expression
+const add = function(a, b) {
+    return a + b;
+};
+
+// Arrow Function
+const multiply = (x, y) => x * y;
+
+// Example Usage
+console.log(greet("Alice")); // Output: Hello, Alice!
+console.log(add(5, 3));      // Output: 8
+console.log(multiply(4, 7)); // Output: 28
+
+// Exporting functions for use in lesson.html
+export { greet, add, multiply };

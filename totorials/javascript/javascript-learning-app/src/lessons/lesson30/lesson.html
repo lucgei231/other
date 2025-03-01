@@ -3,68 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 30</title>
+    <title>JavaScript Lesson 30</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 30</h1>
-    <p>This lesson covers advanced topics in JavaScript.</p>
-
-    <h2>JavaScript Code Preview:</h2>
-    <pre id="code-preview">
-        // Lesson 30 JavaScript Code
-        function advancedFunction() {
-            console.log("This is an advanced JavaScript function!");
-        }
-        advancedFunction();
-    </pre>
-
-    <button id="download-js">Download as .js</button>
-    <button id="download-html">Download as HTML</button>
-
+    <header>
+        <h1>JavaScript Lesson 30</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will cover advanced JavaScript concepts including closures, promises, and async/await. You will learn how to manage asynchronous operations effectively.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical preview of the lesson will be rendered here -->
+                <p>Graphical representation of advanced concepts will be shown here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Download Options</h2>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
     <script>
-        document.getElementById('download-js').addEventListener('click', function() {
-            const jsCode = `// Lesson 30 JavaScript Code
-function advancedFunction() {
-    console.log("This is an advanced JavaScript function!");
-}
-advancedFunction();`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson30.js';
-            a.click();
-            URL.revokeObjectURL(url);
+        document.getElementById('download-html').addEventListener('click', function() {
+            const element = document.createElement('a');
+            const file = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            element.href = URL.createObjectURL(file);
+            element.download = 'lesson30.html';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         });
 
-        document.getElementById('download-html').addEventListener('click', function() {
-            const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 30</title>
-</head>
-<body>
-    <h1>JavaScript Lesson 30</h1>
-    <p>This lesson covers advanced topics in JavaScript.</p>
-    <script>
-        // Lesson 30 JavaScript Code
-        function advancedFunction() {
-            console.log("This is an advanced JavaScript function!");
-        }
-        advancedFunction();
-    </script>
-</body>
-</html>`;
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson30.html';
-            a.click();
-            URL.revokeObjectURL(url);
+        document.getElementById('download-js').addEventListener('click', function() {
+            const element = document.createElement('a');
+            const file = new Blob([document.getElementById('lesson-js').textContent], { type: 'application/javascript' });
+            element.href = URL.createObjectURL(file);
+            element.download = 'lesson30.js';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         });
     </script>
 </body>

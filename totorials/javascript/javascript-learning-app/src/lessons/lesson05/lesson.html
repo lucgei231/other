@@ -3,66 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 5</title>
+    <title>Lesson 5 - JavaScript Learning App</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 5</h1>
-    <p>In this lesson, we will cover advanced functions in JavaScript.</p>
-
-    <h2>JavaScript Code Preview:</h2>
-    <pre id="code-preview">
-function advancedFunction() {
-    console.log("This is an advanced function!");
+    <header>
+        <h1>Lesson 5: Understanding Functions</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, you will learn about functions in JavaScript, how to define them, and how to call them.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical preview of the lesson will be rendered here -->
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
+function greet(name) {
+    return "Hello, " + name + "!";
 }
-
-advancedFunction();
-    </pre>
-
-    <button id="download-js">Download as .js</button>
-    <button id="download-html">Download as HTML</button>
-
-    <script src="../../app.js"></script>
+console.log(greet("World"));
+            </code></pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
     <script>
-        document.getElementById('download-js').addEventListener('click', function() {
-            const jsCode = `function advancedFunction() {
-    console.log("This is an advanced function!");
-}
-
-advancedFunction();`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson05.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-
         document.getElementById('download-html').addEventListener('click', function() {
-            const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 5</title>
-</head>
-<body>
-    <h1>JavaScript Lesson 5</h1>
-    <p>In this lesson, we will cover advanced functions in JavaScript.</p>
-    <script>
-        function advancedFunction() {
-            console.log("This is an advanced function!");
-        }
-        advancedFunction();
-    </script>
-</body>
-</html>`;
-            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = 'lesson05.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('download-js').addEventListener('click', function() {
+            const code = `function greet(name) {
+    return "Hello, " + name + "!";
+}
+console.log(greet("World"));`;
+            const blob = new Blob([code], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson05.js';
             a.click();
             URL.revokeObjectURL(url);
         });

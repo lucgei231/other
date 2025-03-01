@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <h1>JavaScript Lesson 4</h1>
+    <h2>Preview of JavaScript Code</h2>
+    <pre id="js-preview">
+// Example JavaScript code for Lesson 4
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+console.log(greet('World'));
+    </pre>
+    <button id="download-js">Download as .js</button>
+    <button id="download-html">Download as HTML</button>
+
+    <script src="../../app.js"></script>
+    <script>
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsCode = `// Example JavaScript code for Lesson 4\nfunction greet(name) {\n    return \`Hello, \${name}!\`;\n}\nconsole.log(greet('World'));`;
+            const blob = new Blob([jsCode], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson04.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('download-html').addEventListener('click', function() {
+            const htmlContent = `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Lesson 4</title>\n</head>\n<body>\n    <h1>JavaScript Lesson 4</h1>\n    <script>\n        function greet(name) {\n            return \`Hello, \${name}!\`;\n        }\n        console.log(greet('World'));\n    </script>\n</body>\n</html>`;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson04.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

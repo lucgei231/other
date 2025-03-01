@@ -3,71 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 20</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ddd;
-            overflow-x: auto;
-        }
-        button {
-            margin: 5px 0;
-            padding: 10px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Lesson 20 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 20</h1>
-    <h2>Preview of JavaScript Code:</h2>
-    <pre id="js-preview">
-// Sample JavaScript code for Lesson 20
-function lesson20Function() {
-    console.log("This is Lesson 20!");
-}
-lesson20Function();
-    </pre>
-    <button onclick="downloadJS()">Download as .js</button>
-    <button onclick="downloadHTML()">Download as HTML</button>
-
+    <header>
+        <h1>Lesson 20: Advanced JavaScript Concepts</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Overview</h2>
+            <p>This lesson covers advanced JavaScript concepts including closures, promises, and async/await.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical preview of the lesson will be rendered here -->
+                <p>Graphical representation of advanced concepts will be shown here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Preview</h2>
+            <pre id="code-preview">
+                // Example of a closure
+                function makeCounter() {
+                    let count = 0;
+                    return function() {
+                        count++;
+                        return count;
+                    };
+                }
+                const counter = makeCounter();
+                console.log(counter()); // 1
+                console.log(counter()); // 2
+            </pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
     <script>
-        function downloadJS() {
-            const jsCode = `// Sample JavaScript code for Lesson 20
-function lesson20Function() {
-    console.log("This is Lesson 20!");
-}
-lesson20Function();`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson20.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function downloadHTML() {
+        document.getElementById('download-html').addEventListener('click', function() {
             const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 20</title>
+    <title>Lesson 20 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 20</h1>
-    <script>
-        // Sample JavaScript code for Lesson 20
-        function lesson20Function() {
-            console.log("This is Lesson 20!");
-        }
-        lesson20Function();
-    </script>
+    <header>
+        <h1>Lesson 20: Advanced JavaScript Concepts</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Overview</h2>
+            <p>This lesson covers advanced JavaScript concepts including closures, promises, and async/await.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>Graphical representation of advanced concepts will be shown here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Preview</h2>
+            <pre id="code-preview">
+                // Example of a closure
+                function makeCounter() {
+                    let count = 0;
+                    return function() {
+                        count++;
+                        return count;
+                    };
+                }
+                const counter = makeCounter();
+                console.log(counter()); // 1
+                console.log(counter()); // 2
+            </pre>
+        </section>
+    </main>
 </body>
 </html>`;
             const blob = new Blob([htmlContent], { type: 'text/html' });
@@ -77,7 +96,28 @@ lesson20Function();`;
             a.download = 'lesson20.html';
             a.click();
             URL.revokeObjectURL(url);
-        }
+        });
+
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsContent = `// Example of a closure
+function makeCounter() {
+    let count = 0;
+    return function() {
+        count++;
+        return count;
+    };
+}
+const counter = makeCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2`;
+            const blob = new Blob([jsContent], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson20.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
     </script>
 </body>
 </html>

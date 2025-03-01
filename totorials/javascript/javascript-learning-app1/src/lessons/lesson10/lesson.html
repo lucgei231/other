@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 10</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <h1>JavaScript Lesson 10</h1>
+    <h2>Preview of JavaScript Code</h2>
+    <pre id="code-preview">
+        // Lesson 10 JavaScript Code
+        function lessonTen() {
+            console.log("Welcome to Lesson 10!");
+        }
+        lessonTen();
+    </pre>
+    <button onclick="downloadJS()">Download as .js</button>
+    <button onclick="downloadHTML()">Download as HTML</button>
+
+    <script>
+        function downloadJS() {
+            const jsCode = `// Lesson 10 JavaScript Code
+function lessonTen() {
+    console.log("Welcome to Lesson 10!");
+}
+lessonTen();`;
+            const blob = new Blob([jsCode], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson10.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function downloadHTML() {
+            const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 10</title>
+</head>
+<body>
+    <h1>JavaScript Lesson 10</h1>
+    <script src="lesson.js"></script>
+</body>
+</html>`;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson10.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>

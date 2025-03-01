@@ -3,65 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Lesson 6</title>
+    <title>Lesson 6 - JavaScript Learning App</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 6</h1>
-    <p>This lesson covers advanced functions in JavaScript.</p>
-    
-    <h2>JavaScript Code Preview:</h2>
-    <pre id="code-preview">
-function advancedFunction() {
-    console.log("This is an advanced function!");
+    <header>
+        <h1>Lesson 6: Understanding Functions</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will learn about functions in JavaScript. Functions are reusable blocks of code that perform a specific task.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical preview of the lesson will be rendered here -->
+                <p>Graphical representation of functions will be displayed here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
+function greet(name) {
+    return 'Hello, ' + name + '!';
 }
-    </pre>
-
-    <button id="download-js">Download as .js</button>
-    <button id="download-html">Download as HTML</button>
-
-    <script src="../../app.js"></script>
+console.log(greet('World'));
+            </code></pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
     <script>
-        document.getElementById('download-js').onclick = function() {
-            const jsCode = `function advancedFunction() {
-    console.log("This is an advanced function!");
-}`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson06.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        };
+        document.getElementById('download-html').addEventListener('click', function() {
+            const element = document.createElement('a');
+            const file = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+            element.href = URL.createObjectURL(file);
+            element.download = 'lesson06.html';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        });
 
-        document.getElementById('download-html').onclick = function() {
-            const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Lesson 6</title>
-</head>
-<body>
-    <h1>JavaScript Lesson 6</h1>
-    <p>This lesson covers advanced functions in JavaScript.</p>
-    <script>
-        function advancedFunction() {
-            console.log("This is an advanced function!");
-        }
-    </script>
-</body>
-</html>`;
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson06.html';
-            a.click();
-            URL.revokeObjectURL(url);
-        };
+        document.getElementById('download-js').addEventListener('click', function() {
+            const element = document.createElement('a');
+            const file = new Blob([document.getElementById('code-example').innerText], {type: 'text/javascript'});
+            element.href = URL.createObjectURL(file);
+            element.download = 'lesson06.js';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        });
     </script>
 </body>
 </html>

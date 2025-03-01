@@ -3,74 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 16</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ccc;
-            overflow-x: auto;
-        }
-        button {
-            margin: 5px;
-            padding: 10px 15px;
-            font-size: 16px;
-        }
-    </style>
+    <title>Lesson 16 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 16</h1>
-    <h2>Preview of JavaScript Code</h2>
-    <pre id="js-preview">
-// Sample JavaScript code for Lesson 16
-function lesson16Function() {
-    console.log("This is Lesson 16!");
-}
-lesson16Function();
-    </pre>
-    <button onclick="downloadJS()">Download as .js</button>
-    <button onclick="downloadHTML()">Download as HTML</button>
+    <header>
+        <h1>Lesson 16: Understanding Promises in JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will explore the concept of Promises in JavaScript. Promises are used to handle asynchronous operations and provide a cleaner alternative to callbacks.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>This is where a graphical preview of the lesson content will be displayed.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
+const myPromise = new Promise((resolve, reject) => {
+    const success = true; // Simulate success or failure
+    if (success) {
+        resolve("Promise resolved successfully!");
+    } else {
+        reject("Promise rejected.");
+    }
+});
 
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.error(error));
+            </code></pre>
+        </section>
+        <section>
+            <button onclick="downloadHTML()">Download as HTML</button>
+            <button onclick="downloadJS()">Download as JS</button>
+        </section>
+    </main>
     <script>
-        function downloadJS() {
-            const jsCode = `// Sample JavaScript code for Lesson 16
-function lesson16Function() {
-    console.log("This is Lesson 16!");
-}
-lesson16Function();`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson16.js';
-            a.click();
-            URL.revokeObjectURL(url);
+        function downloadHTML() {
+            const element = document.createElement('a');
+            const file = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            element.href = URL.createObjectURL(file);
+            element.download = "lesson16.html";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
 
-        function downloadHTML() {
-            const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 16</title>
-</head>
-<body>
-    <h1>JavaScript Lesson 16</h1>
-    <script src="lesson.js"></script>
-</body>
-</html>`;
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson16.html';
-            a.click();
-            URL.revokeObjectURL(url);
+        function downloadJS() {
+            const element = document.createElement('a');
+            const file = new Blob([document.querySelector('script[src="lesson.js"]').textContent], { type: 'text/javascript' });
+            element.href = URL.createObjectURL(file);
+            element.download = "lesson16.js";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
     </script>
 </body>

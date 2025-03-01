@@ -3,42 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 26</title>
+    <title>Lesson 26 - JavaScript Learning App</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>JavaScript Lesson 26</h1>
-        <h2>Preview of JavaScript Code</h2>
-        <pre id="js-preview">
-            // JavaScript code for Lesson 26
-            function lesson26Function() {
-                console.log("This is Lesson 26!");
-            }
-        </pre>
-        <button id="download-js">Download as .js</button>
-        <button id="download-html">Download as HTML</button>
-    </div>
+    <header>
+        <h1>Lesson 26: Understanding Promises in JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will learn about Promises in JavaScript, how they work, and how to use them to handle asynchronous operations.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>This is where a graphical preview of the lesson will be displayed.</p>
+                <!-- You can embed an image or a diagram here -->
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
+const myPromise = new Promise((resolve, reject) => {
+    const success = true; // Simulating success or failure
+    if (success) {
+        resolve("Promise resolved successfully!");
+    } else {
+        reject("Promise rejected!");
+    }
+});
 
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.log(error));
+            </code></pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
     <script>
-        document.getElementById('download-js').addEventListener('click', function() {
-            const jsCode = `// JavaScript code for Lesson 26\nfunction lesson26Function() {\n    console.log("This is Lesson 26!");\n}`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson26.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-
         document.getElementById('download-html').addEventListener('click', function() {
-            const htmlContent = `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Lesson 26</title>\n</head>\n<body>\n    <h1>JavaScript Lesson 26</h1>\n    <script src="lesson.js"></script>\n</body>\n</html>`;
+            const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 26 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Lesson 26: Understanding Promises in JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will learn about Promises in JavaScript, how they work, and how to use them to handle asynchronous operations.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>This is where a graphical preview of the lesson will be displayed.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
+const myPromise = new Promise((resolve, reject) => {
+    const success = true; // Simulating success or failure
+    if (success) {
+        resolve("Promise resolved successfully!");
+    } else {
+        reject("Promise rejected!");
+    }
+});
+
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.log(error));
+            </code></pre>
+        </section>
+    </main>
+</body>
+</html>`;
             const blob = new Blob([htmlContent], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = 'lesson26.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsContent = `const myPromise = new Promise((resolve, reject) => {
+    const success = true; // Simulating success or failure
+    if (success) {
+        resolve("Promise resolved successfully!");
+    } else {
+        reject("Promise rejected!");
+    }
+});
+
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.log(error));`;
+            const blob = new Blob([jsContent], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson26.js';
             a.click();
             URL.revokeObjectURL(url);
         });

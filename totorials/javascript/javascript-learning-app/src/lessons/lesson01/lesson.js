@@ -1,7 +1,24 @@
-// This is the JavaScript code for Lesson 1 of the JavaScript learning application.
+// Lesson 1: Introduction to JavaScript
 
-function greet(name) {
-    return `Hello, ${name}! Welcome to your first JavaScript lesson.`;
+// This function displays a welcome message
+function displayWelcomeMessage() {
+    const message = "Welcome to JavaScript Learning! Let's get started.";
+    console.log(message);
+    alert(message);
 }
 
-console.log(greet("Student"));
+// Call the function to display the message
+displayWelcomeMessage();
+
+// Example of a simple variable declaration and usage
+let greeting = "Hello, World!";
+console.log(greeting);
+
+// Example of a simple function
+function addNumbers(a, b) {
+    return a + b;
+}
+
+// Testing the addNumbers function
+let sum = addNumbers(5, 10);
+console.log("The sum of 5 and 10 is: " + sum);

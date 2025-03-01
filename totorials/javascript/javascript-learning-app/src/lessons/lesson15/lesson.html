@@ -3,61 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 15</title>
+    <title>Lesson 15 - JavaScript Learning App</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 15</h1>
-    <p>This lesson covers advanced topics in JavaScript.</p>
-    
-    <h2>JavaScript Code Preview:</h2>
-    <pre id="code-preview">
-        // Example JavaScript code for Lesson 15
-        function exampleFunction() {
-            console.log("This is an example function for Lesson 15.");
-        }
-    </pre>
-    
-    <button id="download-js">Download as .js</button>
-    <button id="download-html">Download as HTML</button>
+    <header>
+        <h1>Lesson 15: Understanding Promises in JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will learn about Promises in JavaScript, a powerful feature for handling asynchronous operations.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical representation of Promises can be added here -->
+                <img src="promise-preview.png" alt="Graphical Preview of Promises" />
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
+const myPromise = new Promise((resolve, reject) => {
+    const success = true; // Simulate success or failure
+    if (success) {
+        resolve("Promise resolved successfully!");
+    } else {
+        reject("Promise rejected!");
+    }
+});
 
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.error(error));
+            </code></pre>
+        </section>
+        <section>
+            <button onclick="downloadHTML()">Download as HTML</button>
+            <button onclick="downloadJS()">Download as JS</button>
+        </section>
+    </main>
     <script>
-        document.getElementById('download-js').addEventListener('click', function() {
-            const jsCode = `// Example JavaScript code for Lesson 15
-function exampleFunction() {
-    console.log("This is an example function for Lesson 15.");
-}`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson15.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
+        function downloadHTML() {
+            const element = document.createElement('a');
+            const file = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            element.href = URL.createObjectURL(file);
+            element.download = "lesson15.html";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
 
-        document.getElementById('download-html').addEventListener('click', function() {
-            const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 15</title>
-</head>
-<body>
-    <h1>JavaScript Lesson 15</h1>
-    <p>This lesson covers advanced topics in JavaScript.</p>
-    <script src="lesson.js"></script>
-</body>
-</html>`;
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson15.html';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
+        function downloadJS() {
+            const element = document.createElement('a');
+            const file = new Blob([document.querySelector('script[src="lesson.js"]').textContent], { type: 'application/javascript' });
+            element.href = URL.createObjectURL(file);
+            element.download = "lesson15.js";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
     </script>
 </body>
 </html>

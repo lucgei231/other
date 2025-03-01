@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 19</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        button {
+            margin: 5px 0;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Lesson 19</h1>
+    <h2>Preview of JavaScript Code</h2>
+    <pre id="js-preview">
+// Example JavaScript code for Lesson 19
+function lesson19Function() {
+    console.log("This is Lesson 19!");
+}
+lesson19Function();
+    </pre>
+    <button onclick="downloadJS()">Download as .js</button>
+    <button onclick="downloadHTML()">Download as HTML</button>
+
+    <script>
+        function downloadJS() {
+            const jsCode = `// Example JavaScript code for Lesson 19
+function lesson19Function() {
+    console.log("This is Lesson 19!");
+}
+lesson19Function();`;
+            const blob = new Blob([jsCode], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson19.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadHTML() {
+            const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 19</title>
+</head>
+<body>
+    <h1>JavaScript Lesson 19</h1>
+    <script src="lesson.js"></script>
+</body>
+</html>`;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson19.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

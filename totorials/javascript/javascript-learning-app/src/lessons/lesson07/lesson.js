@@ -1,9 +1,8 @@
-// This file contains the JavaScript code for Lesson 7.
-
-function lessonSeven() {
-    console.log("Welcome to Lesson 7!");
-    // Add your lesson content here
+// filepath: /javascript-learning-app/javascript-learning-app/src/lessons/lesson07/lesson.js
+function lesson07Function() {
+    // This function demonstrates how to create a simple interactive alert
+    alert("Welcome to Lesson 7: Understanding Functions in JavaScript!");
 }
 
-// Call the lesson function to execute
-lessonSeven();
+// Call the function to show the alert when the lesson is loaded
+lesson07Function();

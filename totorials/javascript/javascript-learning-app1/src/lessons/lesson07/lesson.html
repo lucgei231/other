@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Lesson 07</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+        button {
+            margin: 5px 0;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Lesson 07</h1>
+    <h2>Preview of JavaScript Code</h2>
+    <pre id="js-preview">
+// Example JavaScript code for Lesson 07
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+console.log(greet('World'));
+    </pre>
+    <button onclick="downloadFile('lesson.js', 'text/javascript')">Download as .js</button>
+    <button onclick="downloadFile('lesson.html', 'text/html')">Download as HTML</button>
+
+    <script>
+        function downloadFile(filename, filetype) {
+            const element = document.createElement('a');
+            element.setAttribute('href', `./lesson.js`);
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+    </script>
+</body>
+</html>

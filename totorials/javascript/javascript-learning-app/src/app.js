@@ -1,60 +1,51 @@
-const lessons = Array.from({ length: 30 }, (_, i) => ({
-    number: i + 1,
-    title: `Lesson ${i + 1}`,
-    jsCode: `// JavaScript code for Lesson ${i + 1}\nconsole.log('This is Lesson ${i + 1}');`
-}));
+// filepath: /javascript-learning-app/javascript-learning-app/src/app.js
 
-function createDownloadLink(content, filename) {
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
+document.addEventListener("DOMContentLoaded", function() {
+    const downloadButtons = document.querySelectorAll('.download-html');
+    const jsDownloadButtons = document.querySelectorAll('.download-js');
 
-function renderLessons() {
-    const lessonsContainer = document.getElementById('lessons');
-    lessons.forEach(lesson => {
-        const lessonDiv = document.createElement('div');
-        lessonDiv.className = 'lesson';
-
-        const title = document.createElement('h2');
-        title.textContent = lesson.title;
-        lessonDiv.appendChild(title);
-
-        const codePreview = document.createElement('pre');
-        codePreview.textContent = lesson.jsCode;
-        lessonDiv.appendChild(codePreview);
-
-        const downloadJsButton = document.createElement('button');
-        downloadJsButton.textContent = 'Download as .js';
-        downloadJsButton.onclick = () => createDownloadLink(lesson.jsCode, `lesson${lesson.number}.js`);
-        lessonDiv.appendChild(downloadJsButton);
-
-        const downloadHtmlButton = document.createElement('button');
-        downloadHtmlButton.textContent = 'Download as HTML';
-        downloadHtmlButton.onclick = () => createDownloadLink(`
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${lesson.title}</title>
-</head>
-<body>
-    <h1>${lesson.title}</h1>
-    <script src="lesson${lesson.number}.js"></scr`+`ipt>
-</body>
-</html>
-`, `lesson${lesson.number}.html`);
-        lessonDiv.appendChild(downloadHtmlButton);
-
-        lessonsContainer.appendChild(lessonDiv);
+    downloadButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const lessonName = this.dataset.lesson;
+            downloadFile(`${lessonName}/lesson.html`, `${lessonName}.html`);
+        });
     });
-}
 
-document.addEventListener('DOMContentLoaded', renderLessons);
+    jsDownloadButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const lessonName = this.dataset.lesson;
+            downloadFile(`${lessonName}/lesson.js`, `${lessonName}.js`);
+        });
+    });
+
+    function downloadFile(filePath, fileName) {
+        fetch(filePath)
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(err => alert('Error downloading file:', err));
+    }
+
+    // Function to render graphical previews for each lesson
+    function renderPreviews() {
+        const previews = document.querySelectorAll('.lesson-preview');
+        previews.forEach(preview => {
+            const lessonName = preview.dataset.lesson;
+            const img = document.createElement('img');
+            img.src = `${lessonName}/preview.png`; // Assuming each lesson has a preview image
+            img.alt = `Preview of ${lessonName}`;
+            img.style.width = '100%'; // Adjust as needed
+            preview.appendChild(img);
+        });
+    }
+
+    renderPreviews();
+});

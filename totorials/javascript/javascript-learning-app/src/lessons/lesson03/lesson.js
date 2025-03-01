@@ -1,9 +1,20 @@
-// This is the JavaScript code for Lesson 3 of the JavaScript learning application.
-
-function greet(name) {
-    return `Hello, ${name}! Welcome to Lesson 3.`;
+// filepath: /javascript-learning-app/javascript-learning-app/src/lessons/lesson03/lesson.js
+function lessonThreeFunction() {
+    // This function demonstrates a simple JavaScript feature: working with arrays.
+    const fruits = ['Apple', 'Banana', 'Cherry'];
+    
+    // Display the fruits in the console
+    console.log('Fruits:', fruits);
+    
+    // Add a new fruit to the array
+    fruits.push('Date');
+    console.log('Updated Fruits:', fruits);
+    
+    // Loop through the array and display each fruit
+    fruits.forEach(fruit => {
+        console.log('Fruit:', fruit);
+    });
 }
 
-console.log(greet("Student"));
-
-// Additional code examples can be added here for further learning.
+// Call the function to execute the lesson code
+lessonThreeFunction();

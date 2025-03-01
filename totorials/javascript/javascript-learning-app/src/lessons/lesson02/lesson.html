@@ -3,51 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Lesson 2</title>
+    <title>Lesson 2 - JavaScript Learning App</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 2</h1>
-    <h2>Preview of JavaScript Code</h2>
-    <pre id="js-preview">
-// Sample JavaScript code for Lesson 2
-function greet(name) {
-    return `Hello, ${name}!`;
-}
-console.log(greet('World'));
-    </pre>
-    <button onclick="downloadJS()">Download as .js</button>
-    <button onclick="downloadHTML()">Download as HTML</button>
-
+    <header>
+        <h1>JavaScript Learning Application - Lesson 2</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson 2: Understanding Variables</h2>
+            <p>In this lesson, you will learn about variables in JavaScript, how to declare them, and the different types of variables.</p>
+            <h3>Graphical Preview</h3>
+            <div id="preview">
+                <!-- Graphical representation of variables can be added here -->
+                <img src="preview.png" alt="Graphical Preview of Variables" />
+            </div>
+            <h3>Code Preview</h3>
+            <pre><code>
+                // Example of variable declaration
+                let name = "John Doe";
+                const age = 30;
+                var isStudent = true;
+            </code></pre>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
     <script>
-        function downloadJS() {
-            const jsCode = `// Sample JavaScript code for Lesson 2
-function greet(name) {
-    return \`Hello, \${name}!\`;
-}
-console.log(greet('World'));`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson02.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function downloadHTML() {
-            const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Lesson 2</title>
-</head>
-<body>
-    <h1>JavaScript Lesson 2</h1>
-    <script src="lesson.js"></script>
-</body>
-</html>`;
+        document.getElementById('download-html').addEventListener('click', function() {
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Lesson 2 - JavaScript Learning App</title>
+                </head>
+                <body>
+                    <h1>JavaScript Learning Application - Lesson 2</h1>
+                    <h2>Lesson 2: Understanding Variables</h2>
+                    <p>In this lesson, you will learn about variables in JavaScript, how to declare them, and the different types of variables.</p>
+                    <pre><code>
+                        // Example of variable declaration
+                        let name = "John Doe";
+                        const age = 30;
+                        var isStudent = true;
+                    </code></pre>
+                </body>
+                </html>
+            `;
             const blob = new Blob([htmlContent], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -55,7 +61,23 @@ console.log(greet('World'));`;
             a.download = 'lesson02.html';
             a.click();
             URL.revokeObjectURL(url);
-        }
+        });
+
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsContent = `
+                // JavaScript code for Lesson 2
+                let name = "John Doe";
+                const age = 30;
+                var isStudent = true;
+            `;
+            const blob = new Blob([jsContent], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson02.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
     </script>
 </body>
 </html>

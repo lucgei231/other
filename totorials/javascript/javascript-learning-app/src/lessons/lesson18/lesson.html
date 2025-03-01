@@ -3,74 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 18</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ddd;
-            overflow-x: auto;
-        }
-        button {
-            margin: 5px 0;
-            padding: 10px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Lesson 18 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 18</h1>
-    <h2>Preview of JavaScript Code</h2>
-    <pre id="js-preview">
-// Sample JavaScript code for Lesson 18
-function lesson18Function() {
-    console.log("This is Lesson 18!");
-}
-lesson18Function();
-    </pre>
-    <button onclick="downloadJS()">Download as .js</button>
-    <button onclick="downloadHTML()">Download as HTML</button>
+    <header>
+        <h1>Lesson 18: Understanding Promises in JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will learn about Promises in JavaScript, how they work, and how to use them to handle asynchronous operations.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical representation of Promises can be added here -->
+                <img src="promise-preview.png" alt="Graphical Preview of Promises" />
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre>
+                <code>
+const myPromise = new Promise((resolve, reject) => {
+    const success = true; // Simulate success or failure
+    if (success) {
+        resolve("Promise resolved successfully!");
+    } else {
+        reject("Promise rejected.");
+    }
+});
 
+myPromise
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
+                </code>
+            </pre>
+        </section>
+        <section>
+            <button onclick="downloadHTML()">Download as HTML</button>
+            <button onclick="downloadJS()">Download as JS</button>
+        </section>
+    </main>
     <script>
-        function downloadJS() {
-            const jsCode = `// Sample JavaScript code for Lesson 18
-function lesson18Function() {
-    console.log("This is Lesson 18!");
-}
-lesson18Function();`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson18.js';
-            a.click();
-            URL.revokeObjectURL(url);
+        function downloadHTML() {
+            const element = document.createElement('a');
+            const file = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            element.href = URL.createObjectURL(file);
+            element.download = "lesson18.html";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
 
-        function downloadHTML() {
-            const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 18</title>
-</head>
-<body>
-    <h1>JavaScript Lesson 18</h1>
-    <script src="lesson.js"></script>
-</body>
-</html>`;
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson18.html';
-            a.click();
-            URL.revokeObjectURL(url);
+        function downloadJS() {
+            const jsCode = `
+const myPromise = new Promise((resolve, reject) => {
+    const success = true; // Simulate success or failure
+    if (success) {
+        resolve("Promise resolved successfully!");
+    } else {
+        reject("Promise rejected.");
+    }
+});
+
+myPromise
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
+            `;
+            const element = document.createElement('a');
+            const file = new Blob([jsCode], { type: 'text/javascript' });
+            element.href = URL.createObjectURL(file);
+            element.download = "lesson18.js";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
     </script>
 </body>

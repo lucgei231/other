@@ -3,24 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 27</title>
+    <title>Lesson 27 - JavaScript Learning App</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <div class="lesson-container">
-        <h1>JavaScript Lesson 27</h1>
-        <h2>Preview of JavaScript Code:</h2>
-        <pre id="js-preview">
-// Example JavaScript code for Lesson 27
-function lesson27Function() {
-    console.log("This is Lesson 27!");
+    <header>
+        <h1>Lesson 27: Advanced Functions</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will explore advanced functions in JavaScript, including closures, higher-order functions, and the use of the 'this' keyword.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical preview of the lesson will be rendered here -->
+                <p>Graphical representation of advanced functions will be shown here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Preview</h2>
+            <pre><code id="code-preview">
+// Example of a higher-order function
+function greet(name) {
+    return function() {
+        console.log("Hello, " + name);
+    };
 }
-lesson27Function();
-        </pre>
-        <div class="download-buttons">
-            <a href="lesson.js" download="lesson27.js" class="download-button">Download as .js</a>
-            <a href="lesson.html" download="lesson27.html" class="download-button">Download as HTML</a>
-        </div>
-    </div>
+
+const greetJohn = greet("John");
+greetJohn(); // Outputs: Hello, John
+            </code></pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
+    <script>
+        document.getElementById('download-html').addEventListener('click', function() {
+            const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 27 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Lesson 27: Advanced Functions</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will explore advanced functions in JavaScript, including closures, higher-order functions, and the use of the 'this' keyword.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>Graphical representation of advanced functions will be shown here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Preview</h2>
+            <pre><code>
+// Example of a higher-order function
+function greet(name) {
+    return function() {
+        console.log("Hello, " + name);
+    };
+}
+
+const greetJohn = greet("John");
+greetJohn(); // Outputs: Hello, John
+            </code></pre>
+        </section>
+    </main>
+</body>
+</html>`;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson27.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsContent = `// Example of a higher-order function
+function greet(name) {
+    return function() {
+        console.log("Hello, " + name);
+    };
+}
+
+const greetJohn = greet("John");
+greetJohn(); // Outputs: Hello, John`;
+            const blob = new Blob([jsContent], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson27.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
 </body>
 </html>

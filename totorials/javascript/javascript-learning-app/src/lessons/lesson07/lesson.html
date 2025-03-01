@@ -3,48 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Lesson 07</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ccc;
-            overflow-x: auto;
-        }
-        button {
-            margin: 5px 0;
-            padding: 10px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Lesson 7 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 07</h1>
-    <h2>Preview of JavaScript Code</h2>
-    <pre id="js-preview">
-// Example JavaScript code for Lesson 07
+    <header>
+        <h1>Lesson 7: Understanding Functions</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, you will learn about functions in JavaScript. Functions are reusable blocks of code that perform a specific task.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical representation of functions can be added here -->
+                <img src="function-preview.png" alt="Function Preview" />
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
 function greet(name) {
-    return `Hello, ${name}!`;
+    return 'Hello, ' + name + '!';
 }
 console.log(greet('World'));
-    </pre>
-    <button onclick="downloadFile('lesson.js', 'text/javascript')">Download as .js</button>
-    <button onclick="downloadFile('lesson.html', 'text/html')">Download as HTML</button>
-
+            </code></pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 JavaScript Learning App</p>
+    </footer>
     <script>
-        function downloadFile(filename, filetype) {
+        document.getElementById('download-html').addEventListener('click', function() {
             const element = document.createElement('a');
-            element.setAttribute('href', `./lesson.js`);
-            element.setAttribute('download', filename);
-            element.style.display = 'none';
+            const file = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            element.href = URL.createObjectURL(file);
+            element.download = 'lesson07.html';
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-        }
+        });
+
+        document.getElementById('download-js').addEventListener('click', function() {
+            const element = document.createElement('a');
+            const file = new Blob([`function greet(name) {\n    return 'Hello, ' + name + '!';\n}\nconsole.log(greet('World'));`], { type: 'text/javascript' });
+            element.href = URL.createObjectURL(file);
+            element.download = 'lesson07.js';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        });
     </script>
 </body>
 </html>

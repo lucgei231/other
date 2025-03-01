@@ -3,20 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Lesson 1</title>
+    <title>Lesson 1 - Introduction to JavaScript</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 1</h1>
-    <h2>Preview of JavaScript Code:</h2>
-    <pre id="js-preview">
-// This is a sample JavaScript code for Lesson 1
-console.log("Hello, World!");
-    </pre>
-    <button id="download-js">Download as .js</button>
-    <button id="download-html">Download as HTML</button>
+    <header>
+        <h1>Lesson 1: Introduction to JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, you will learn the basics of JavaScript, including variables, data types, and basic syntax.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- This is where the graphical preview will be rendered -->
+                <p>Graphical representation of JavaScript basics will be shown here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Preview</h2>
+            <pre><code>
+                // Example JavaScript code
+                let greeting = "Hello, World!";
+                console.log(greeting);
+            </code></pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 JavaScript Learning App</p>
+    </footer>
+    <script>
+        document.getElementById('download-html').addEventListener('click', function() {
+            const element = document.createElement('a');
+            const file = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            element.href = URL.createObjectURL(file);
+            element.download = 'lesson01.html';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        });
 
-    <script src="../../app.js"></script>
-    <script src="lesson.js"></script>
+        document.getElementById('download-js').addEventListener('click', function() {
+            const element = document.createElement('a');
+            const file = new Blob([`// Example JavaScript code\nlet greeting = "Hello, World!";\nconsole.log(greeting);`], { type: 'text/javascript' });
+            element.href = URL.createObjectURL(file);
+            element.download = 'lesson01.js';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        });
+    </script>
 </body>
 </html>

@@ -3,72 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Lesson 08</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ddd;
-            overflow-x: auto;
-        }
-        button {
-            margin: 5px 0;
-            padding: 10px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Lesson 8 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 08</h1>
-    <h2>Preview of JavaScript Code:</h2>
-    <pre id="js-preview">
-// Sample JavaScript code for Lesson 08
+    <header>
+        <h1>Lesson 8: Understanding Functions</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, you will learn about functions in JavaScript, how to define them, and how to invoke them.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <!-- Graphical representation of functions can be added here -->
+                <p>Graphical representation of functions will be displayed here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
 function greet(name) {
-    return `Hello, ${name}!`;
+    return 'Hello, ' + name + '!';
 }
 console.log(greet('World'));
-    </pre>
-    <button onclick="downloadJS()">Download as .js</button>
-    <button onclick="downloadHTML()">Download as HTML</button>
-
+            </code></pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
     <script>
-        function downloadJS() {
-            const jsCode = `// Sample JavaScript code for Lesson 08
-function greet(name) {
-    return \`Hello, \${name}!\`;
-}
-console.log(greet('World'));`;
-            const blob = new Blob([jsCode], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson08.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function downloadHTML() {
+        document.getElementById('download-html').addEventListener('click', function() {
             const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Lesson 08</title>
+    <title>Lesson 8 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 08</h1>
-    <h2>Preview of JavaScript Code:</h2>
-    <pre>
-// Sample JavaScript code for Lesson 08
+    <header>
+        <h1>Lesson 8: Understanding Functions</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, you will learn about functions in JavaScript, how to define them, and how to invoke them.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>Graphical representation of functions will be displayed here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Example</h2>
+            <pre><code>
 function greet(name) {
-    return \`Hello, \${name}!\`;
+    return 'Hello, ' + name + '!';
 }
 console.log(greet('World'));
-    </pre>
+            </code></pre>
+        </section>
+    </main>
 </body>
 </html>`;
             const blob = new Blob([htmlContent], { type: 'text/html' });
@@ -78,7 +82,21 @@ console.log(greet('World'));
             a.download = 'lesson08.html';
             a.click();
             URL.revokeObjectURL(url);
-        }
+        });
+
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsContent = `function greet(name) {
+    return 'Hello, ' + name + '!';
+}
+console.log(greet('World'));`;
+            const blob = new Blob([jsContent], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson08.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
     </script>
 </body>
 </html>

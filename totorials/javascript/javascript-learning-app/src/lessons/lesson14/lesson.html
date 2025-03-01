@@ -3,60 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 14</title>
+    <title>Lesson 14 - JavaScript Learning App</title>
     <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 14</h1>
-    <p>This lesson covers advanced JavaScript concepts.</p>
-    
-    <h2>JavaScript Code Preview:</h2>
-    <pre id="code-preview">
-        // Example JavaScript code for Lesson 14
-        function exampleFunction() {
-            console.log("This is an example function for Lesson 14.");
+    <header>
+        <h1>Lesson 14: Understanding Promises in JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will learn about Promises in JavaScript, how they work, and how to use them to handle asynchronous operations.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>Graphical representation of Promises will be shown here.</p>
+                <!-- You can add an image or a canvas for graphical representation -->
+            </div>
+        </section>
+        <section>
+            <h2>Code Preview</h2>
+            <pre id="code-preview">
+                <code>
+const myPromise = new Promise((resolve, reject) => {
+    // Simulate an asynchronous operation
+    setTimeout(() => {
+        const success = true; // Change to false to simulate an error
+        if (success) {
+            resolve("Operation was successful!");
+        } else {
+            reject("Operation failed.");
         }
-    </pre>
+    }, 2000);
+});
 
-    <button id="download-js">Download as .js</button>
-    <button id="download-html">Download as HTML</button>
-
-    <script src="../../app.js"></script>
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.error(error));
+                </code>
+            </pre>
+        </section>
+        <section>
+            <button id="download-html">Download as HTML</button>
+            <button id="download-js">Download as JS</button>
+        </section>
+    </main>
     <script>
-        document.getElementById('download-js').addEventListener('click', function() {
-            const blob = new Blob([document.getElementById('code-preview').innerText], { type: 'text/javascript' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'lesson14.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-
         document.getElementById('download-html').addEventListener('click', function() {
-            const htmlContent = `
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Lesson 14</title>
-                </head>
-                <body>
-                    <script>
-                        // Example JavaScript code for Lesson 14
-                        function exampleFunction() {
-                            console.log("This is an example function for Lesson 14.");
-                        }
-                    </script>
-                </body>
-                </html>
-            `;
+            const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 14 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Lesson 14: Understanding Promises in JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will learn about Promises in JavaScript, how they work, and how to use them to handle asynchronous operations.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>Graphical representation of Promises will be shown here.</p>
+            </div>
+        </section>
+        <section>
+            <h2>Code Preview</h2>
+            <pre>
+                <code>
+const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        const success = true;
+        if (success) {
+            resolve("Operation was successful!");
+        } else {
+            reject("Operation failed.");
+        }
+    }, 2000);
+});
+
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.error(error));
+                </code>
+            </pre>
+        </section>
+    </main>
+</body>
+</html>`;
             const blob = new Blob([htmlContent], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = 'lesson14.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('download-js').addEventListener('click', function() {
+            const jsContent = `const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        const success = true;
+        if (success) {
+            resolve("Operation was successful!");
+        } else {
+            reject("Operation failed.");
+        }
+    }, 2000);
+});
+
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.error(error));`;
+            const blob = new Blob([jsContent], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lesson14.js';
             a.click();
             URL.revokeObjectURL(url);
         });

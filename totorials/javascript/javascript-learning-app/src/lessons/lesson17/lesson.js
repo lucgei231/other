@@ -1,9 +1,29 @@
-// This is the JavaScript code for Lesson 17 of the JavaScript learning application.
+// filepath: /javascript-learning-app/javascript-learning-app/src/lessons/lesson17/lesson.js
 
-function lesson17Function() {
-    console.log("Welcome to Lesson 17!");
-    // Add your lesson logic here
+// Lesson 17: Understanding Promises in JavaScript
+
+// This lesson will cover the basics of Promises in JavaScript, including how to create and use them.
+
+function fetchData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const data = { message: "Data fetched successfully!" };
+            resolve(data);
+        }, 2000);
+    });
 }
 
-// Call the lesson function to demonstrate functionality
-lesson17Function();
+function displayData() {
+    fetchData()
+        .then(data => {
+            console.log(data.message);
+            document.getElementById("output").innerText = data.message;
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error);
+            document.getElementById("output").innerText = "Error fetching data.";
+        });
+}
+
+// Call the displayData function to execute the promise
+displayData();

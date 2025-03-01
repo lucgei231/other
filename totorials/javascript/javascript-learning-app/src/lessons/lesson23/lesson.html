@@ -3,45 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 23</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ccc;
-            overflow-x: auto;
-        }
-        button {
-            margin: 5px;
-            padding: 10px 15px;
-            font-size: 16px;
-        }
-    </style>
+    <title>Lesson 23 - JavaScript Learning App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="lesson.js" defer></script>
 </head>
 <body>
-    <h1>JavaScript Lesson 23</h1>
-    <h2>Preview of JavaScript Code:</h2>
-    <pre id="code-preview">
-        // This is the JavaScript code for Lesson 23
-        function lesson23Function() {
-            console.log("Hello from Lesson 23!");
-        }
-    </pre>
-    <button onclick="downloadFile('lesson23.js', 'text/javascript')">Download as .js</button>
-    <button onclick="downloadFile('lesson23.html', 'text/html')">Download as HTML</button>
+    <header>
+        <h1>Lesson 23: Understanding Promises in JavaScript</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, we will learn about Promises in JavaScript, how they work, and how to use them to handle asynchronous operations.</p>
+        </section>
+        <section>
+            <h2>Graphical Preview</h2>
+            <div id="preview">
+                <p>This is where a graphical preview of the lesson content will be displayed.</p>
+                <!-- You can embed an image or a diagram here -->
+            </div>
+        </section>
+        <section>
+            <h2>JavaScript Code Preview</h2>
+            <pre id="code-preview">
+                <code>
+const myPromise = new Promise((resolve, reject) => {
+    const success = true; // Simulate success or failure
+    if (success) {
+        resolve("Promise resolved successfully!");
+    } else {
+        reject("Promise rejected.");
+    }
+});
 
+myPromise
+    .then(result => console.log(result))
+    .catch(error => console.error(error));
+                </code>
+            </pre>
+        </section>
+        <section>
+            <button onclick="downloadHTML()">Download as HTML</button>
+            <button onclick="downloadJS()">Download as JS</button>
+        </section>
+    </main>
     <script>
-        function downloadFile(filename, filetype) {
+        function downloadHTML() {
             const element = document.createElement('a');
-            const code = document.getElementById('code-preview').innerText;
-            const blob = new Blob([code], { type: filetype });
-            const url = URL.createObjectURL(blob);
-            element.setAttribute('href', url);
-            element.setAttribute('download', filename);
+            const file = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            element.href = URL.createObjectURL(file);
+            element.download = "lesson23.html";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function downloadJS() {
+            const element = document.createElement('a');
+            const file = new Blob([document.getElementById('code-preview').innerText], { type: 'text/javascript' });
+            element.href = URL.createObjectURL(file);
+            element.download = "lesson23.js";
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);

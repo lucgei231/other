@@ -1,8 +1,10 @@
-// This file contains the JavaScript code for Lesson 21.
-
+// filepath: /javascript-learning-app/javascript-learning-app/src/lessons/lesson21/lesson.js
 function lesson21Function() {
-    console.log("Welcome to Lesson 21!");
-    // Add your lesson-specific code here
+    // Example JavaScript code for Lesson 21
+    const message = "Welcome to Lesson 21!";
+    console.log(message);
+    alert(message);
 }
 
+// Call the function to demonstrate its functionality
 lesson21Function();
