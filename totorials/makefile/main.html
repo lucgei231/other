@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Makefile Tutorial</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+        h1, h2 { color: #333; }
+        pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Makefile Tutorial</h1>
+    
+    <p>This tutorial explains a simple Makefile for a C project and how it works.</p>
+    
+    <h2>1. Variables</h2>
+    <p>The first few lines of the Makefile define variables. These make it easier to change settings in one place:</p>
+    <pre>
+CC=gcc
+CFLAGS=-I./src -Wall -Wextra
+SRC=src/main.c src/snake.c src/input.c
+OBJ=$(SRC:.c=.o)
+EXEC=snake
+    </pre>
+    <ul>
+        <li><strong>CC:</strong> The compiler to use (gcc).</li>
+        <li><strong>CFLAGS:</strong> Compiler flags, such as include directories and warning options.</li>
+        <li><strong>SRC:</strong> List of source files.</li>
+        <li><strong>OBJ:</strong> Automatically converts source file names to object file names (.o).</li>
+        <li><strong>EXEC:</strong> The name of the final executable.</li>
+    </ul>
+    
+    <h2>2. Targets and Rules</h2>
+    <p>A Makefile is made of rules. Each rule has a target, prerequisites (dependencies), and a command to run.</p>
+    
+    <h3>The <code>all</code> Target</h3>
+    <pre>
+all: $(EXEC)
+    </pre>
+    <p>This tells <code>make</code> that the default goal is to build the executable. When you run <code>make</code> without arguments, it builds <code>$(EXEC)</code>.</p>
+    
+    <h3>Compiling the Executable</h3>
+    <pre>
+$(EXEC): $(OBJ)
+    $(CC) -o $@ $^
+    </pre>
+    <p>
+        Here, <code>$(EXEC)</code> depends on all the object files (<code>$(OBJ)</code>). The command uses <code>$(CC)</code> (gcc) to link the object files together. The symbols:
+    </p>
+    <ul>
+        <li><code>$@</code>: Represents the target, in this case the executable name.</li>
+        <li><code>$^</code>: Represents all the prerequisites (dependencies), i.e. the object files.</li>
+    </ul>
+    
+    <h3>Compiling Object Files</h3>
+    <pre>
+%.o: %.c
+    $(CC) $(CFLAGS) -c $< -o $@
+    </pre>
+    <p>
+        This is a pattern rule. It tells <code>make</code> how to build any <code>.o</code> file from its corresponding <code>.c</code> file.
+    </p>
+    <ul>
+        <li><code>$<</code>: The first prerequisite (the .c file).</li>
+        <li><code>$@</code>: The target (the .o file).</li>
+    </ul>
+    
+    <h2>3. The <code>clean</code> Target</h2>
+    <pre>
+clean:
+    rm -f $(OBJ) $(EXEC)
+    </pre>
+    <p>
+        The <code>clean</code> target is used to delete generated files (object files and the executable) so you can rebuild them from scratch. Run it with <code>make clean</code>.
+    </p>
+    
+    <h2>4. How to Use This Makefile</h2>
+    <ol>
+        <li>Open your integrated terminal (or any terminal) in the project folder.</li>
+        <li>Run <code>make</code>. This will compile the source files and create the executable.</li>
+        <li>Run your program with <code>./snake</code> (if on a Unix system) or <code>snake.exe</code> on Windows.</li>
+        <li>To remove build files, run <code>make clean</code>.</li>
+    </ol>
+    
+    <p>Happy coding in C!</p>
+</body>
+</html>
