@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#ifdef _WIN32
 #include <windows.h>
+#else
+#include <unistd.h>
+#define Sleep(ms) usleep((ms) * 1000)
+#endif
 #include "snake.h"
 
 #define WIDTH 20
@@ -12,7 +17,7 @@ void draw();
 void input();
 void logic();
 int gameOver;
-
+int isGameOver;
 int x, y, fruitX, fruitY, score;
 int tailX[100], tailY[100];
 int nTail;

@@ -5,18 +5,18 @@ OBJ = $(SRC:.c=.o)
 EXEC = snake
 
 ifeq ($(OS),Windows_NT)
-    RM = del /Q
+	RM = del /Q
 else
-    RM = rm -f
+	RM = rm -f
 endif
 
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-    $(CC) -o $@ $^
+	$(CC) -o $@ $^
 
 %.o: %.c
-    $(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-    $(RM) $(OBJ) $(EXEC)
+	$(RM) $(OBJ) $(EXEC)

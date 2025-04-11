@@ -5,7 +5,6 @@
 
 #define WIDTH 20
 #define HEIGHT 10
-
 static int gameOver;
 static int score;
 static int x, y, fruitX, fruitY, tailX[100], tailY[100];
