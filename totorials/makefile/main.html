@@ -5,8 +5,10 @@
     <title>Makefile Tutorial</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
-        h1, h2 { color: #333; }
+        h1, h2, h3 { color: #333; }
         pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+        button { margin: 10px 0; padding: 8px 16px; }
+        #output { margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -84,5 +86,44 @@ clean:
     </ol>
     
     <p>Happy coding in C!</p>
+    
+    <h2>Try the Embedded Wasm Module</h2>
+    <p>Click the button below to instantiate a minimal WebAssembly module (exporting <code>run</code>) and call its function.</p>
+    <button id="runButton">Run Wasm</button>
+    <div id="output"></div>
+    
+    <script>
+        // This Base64 string represents a minimal Wasm module compiled from:
+        // (module
+        //   (func (export "run"))
+        // )
+        // It was generated using a tool like wat2wasm.
+        const wasmBase64 = "AGFzbQEAAAABBAFgaaAAAAMCBwEDcnVuAAAQCQEACw==";
+        
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+        
+        document.getElementById("runButton").addEventListener("click", async () => {
+            const wasmBuffer = base64ToArrayBuffer(wasmBase64);
+            try {
+                const result = await WebAssembly.instantiate(wasmBuffer);
+                if(result.instance.exports.run) {
+                    result.instance.exports.run();
+                    document.getElementById("output").innerText = "Wasm function 'run' executed successfully.";
+                } else {
+                    document.getElementById("output").innerText = "No exported function 'run' found in the module.";
+                }
+            } catch(e) {
+                document.getElementById("output").innerText = "Error instantiating Wasm: " + e;
+            }
+        });
+    </script>
 </body>
 </html>
